@@ -27,53 +27,34 @@ public class CreateComercioServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// recoger datos formulario
-		String merchantId = req.getParameter("merchantid");
-		String nombreComercio = req.getParameter("name");
+		String merchantId = req.getParameter("merchantId");
+		String nombreComercio = req.getParameter("nombreComercio");
 		String sector = req.getParameter("sector");
 		int cp = Integer.parseInt(req.getParameter("cp"));
 		String banco = req.getParameter("banco");
+		int idComerciante = Integer.parseInt(req.getParameter("idComerciante"));
+
+		// obtener comerciante
+		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
+		Comerciante comerciante = comercianteDAO.read(idComerciante);
 		
-		
-		int comercianteId = Integer.parseInt(req.getParameter("comerciante_id"));
-		
-		System.out.println(" --- CreateComercioServlet - parámetro comercianteId: " + req.getParameter("comerciante_id"));
-		System.out.println(" --- CreateComercioServlet - parámetro comercianteId parsed: " + comercianteId);
-		
+		// crear objeto comercio y actualizar valores
 		Comercio comercio = new Comercio();
 		comercio.setMerchantId(merchantId);
 		comercio.setNombreComercio(nombreComercio);
 		comercio.setSector(sector);
 		comercio.setCp(cp);
 		comercio.setBanco(banco);
-		
-		ComercianteDAO comercianteDao = ComercianteDAOImplementation.getInstance();
-		Comerciante comerciante = comercianteDao.read(comercianteId);
-		System.out.println(" --- CreateComercioServlet - comerciante.toString(): " + comerciante.toString());
-		System.out.println(" --- CreateComercioServlet - comerciante.getId(): " + comerciante.getId());
 		comercio.setComerciante(comerciante);
 		
+		// crear comercio en bbdd
 		ComercioDAO comercioDao = ComercioDAOImplementation.getInstance();
 		comercioDao.create(comercio);
 
-		System.out.println(" --- CreateComercianteServlet - comercios.size(): " + comercioDao.readAll().size());
+		// redirigir a GestionarComercianteServlet
+		resp.sendRedirect(req.getContextPath() + "/GestionarComercianteServlet");
 		
-		resp.sendRedirect(req.getContextPath() + "/ComercianteServlet");
-		
-		/*
-		String name = req.getParameter( "name" );
-		String password = req.getParameter( "password" );
-		String email = req.getParameter( "email" );
-		Professor professor = new Professor();
-		professor.setName( name );
-		professor.setEmail( email );
-		
-		professor.setPassword( new Sha256Hash( password ).toString() );
-		
-		ProfessorDAO pdao = ProfessorDAOImplementation.getInstance();
-		pdao.create( professor );
-		
-		resp.sendRedirect( req.getContextPath() + "/AdminServlet" );
-		*/
 	}
+	
 }
 

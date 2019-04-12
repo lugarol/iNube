@@ -116,11 +116,13 @@ public class ComercioDAOImplementation implements ComercioDAO {
 		} finally {
 			session.close();
 		}
+		/* revisar quitar
 		if (comercios == null) {
 			System.out.println(" --- ComercioDAOImplementation - comercios es null");
 		} else {
 			System.out.println(" --- ComercioDAOImplementation - comercios.size(): " + comercios.size());
 		}
+		*/
 		return comercios;
 	}
 	

@@ -22,34 +22,39 @@ import es.upm.dit.isst.inube.model.Comerciante;
 
 @WebServlet("/CreateComercianteServlet")
 public class CreateComercianteServlet extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		System.out.println(" ------------------------------------ ");
+		System.out.println(" CreateComercianteServlet > doGet ");
+		System.out.println(" ------------------------------------ ");
+		
+		// redirigir a SignInView.jsp
+		getServletContext().getRequestDispatcher("/SignInView.jsp").forward(req, resp);
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// recoger datos formulario
+		
+		System.out.println(" ------------------------------------ ");
+		System.out.println(" CreateComercianteServlet > doPost ");
+		System.out.println(" ------------------------------------ ");
+		
+		// recoger parámetros formulario
 		String usuario = req.getParameter("usuario");
-		String password = req.getParameter("password");
+		String password1 = req.getParameter("password1");
+		
+		// crear y rellenar objeto comerciante
 		Comerciante comerciante = new Comerciante();
 		comerciante.setUsuario(usuario);
-		comerciante.setPassword(new Sha256Hash(password).toString());
+		comerciante.setPassword(new Sha256Hash(password1).toString());
 		
+		// crear comerciante en bbdd
 		ComercianteDAO comercianteDao = ComercianteDAOImplementation.getInstance();
 		comercianteDao.create(comerciante);
 		
-		resp.sendRedirect(req.getContextPath() + "/AdminServlet");
-		
-		/*
-		String name = req.getParameter( "name" );
-		String password = req.getParameter( "password" );
-		String email = req.getParameter( "email" );
-		Professor professor = new Professor();
-		professor.setName( name );
-		professor.setEmail( email );
-		
-		professor.setPassword( new Sha256Hash( password ).toString() );
-		
-		ProfessorDAO pdao = ProfessorDAOImplementation.getInstance();
-		pdao.create( professor );
-		
-		resp.sendRedirect( req.getContextPath() + "/AdminServlet" );
-		*/
+		// redirigir al login para que entren en su cuenta
+		resp.sendRedirect(req.getContextPath() + "/LoginServlet");
 	}
 }

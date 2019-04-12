@@ -3,15 +3,12 @@ package es.upm.dit.isst.inube.servlets;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -22,22 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
-import es.upm.dit.isst.inube.dao.ClienteDAO;
-import es.upm.dit.isst.inube.dao.ClienteDAOImplementation;
-import es.upm.dit.isst.inube.dao.ComercianteDAO;
-import es.upm.dit.isst.inube.dao.ComercianteDAOImplementation;
 import es.upm.dit.isst.inube.dao.ComercioDAO;
 import es.upm.dit.isst.inube.dao.ComercioDAOImplementation;
-import es.upm.dit.isst.inube.dao.VentaDAO;
-import es.upm.dit.isst.inube.dao.VentaDAOImplementation;
 import es.upm.dit.isst.inube.model.*;
 
-@WebServlet("/ComercioServlet")
-public class ComercioServlet extends HttpServlet {
+@WebServlet("/VerComercioEstadIndivServlet")
+public class VerComercioEstadIndivServlet extends HttpServlet {
 	
+	/* revisar quitar
 	public String getIdsClientesDistintos(Set<Integer> idClientesDistintos) {
 		String ids = "";
 		for (Integer i : idClientesDistintos) {
@@ -45,14 +34,15 @@ public class ComercioServlet extends HttpServlet {
 		}
 		return ids;
 	}
+	*/
 	
-	public void printMap(Map<Integer, Integer> map) {
+	public void printMapIntegerInteger(Map<Integer, Integer> map) {
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             System.out.println("Hora: " + entry.getKey() + " | Nº ventas: " + entry.getValue());
         }
     }
 	
-	public void printMap2(Map<Integer, Double[]> map) {
+	public void printMapIntegerDoubleArr(Map<Integer, Double[]> map) {
         for (Map.Entry<Integer, Double[]> entry : map.entrySet()) {
         	Integer hora_kk = entry.getKey();
         	Double[] array_kk = entry.getValue();
@@ -64,7 +54,7 @@ public class ComercioServlet extends HttpServlet {
         }
     }
 	
-	public void printMap3(Map<String, double[]> map) {
+	public void printMapStringdoubleArr(Map<String, double[]> map) {
         for (Map.Entry<String, double[]> entry : map.entrySet()) {
         	String rangoEdad = entry.getKey();
         	double[] array_kk = entry.getValue();
@@ -72,7 +62,7 @@ public class ComercioServlet extends HttpServlet {
         }
     }
 	
-	public void printMap4(Map<Integer, double[]> map) {
+	public void printMapIntegerdoubleArr(Map<Integer, double[]> map) {
         for (Map.Entry<Integer, double[]> entry : map.entrySet()) {
         	int idCliente = entry.getKey();
         	double[] array_kk = entry.getValue();
@@ -80,7 +70,7 @@ public class ComercioServlet extends HttpServlet {
         }
     }
 	
-	public void printMap5(Map<String, Double[]> map) {
+	public void printMapStringDoubleArr(Map<String, Double[]> map) {
         for (Map.Entry<String, Double[]> entry : map.entrySet()) {
         	String rangoEdad = entry.getKey();
         	Double[] array_kk = entry.getValue();
@@ -111,24 +101,19 @@ public class ComercioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		System.out.println(" ------------------------------------ ");
-		System.out.println(" ComercioServlet > doGet ");
+		System.out.println(" VerComercioEstadIndivServlet > doGet ");
 		System.out.println(" ------------------------------------ ");
 		
-		String merchantId = req.getParameter("merchantid");
+		// recoger parámetros
+		String merchantId = req.getParameter("merchantId");
 		
+		/*
+		// obtener comercio
 		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
 		Comercio comercio = comercioDAO.read(merchantId);
 		
-		
-		/*VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
-		Collection<Venta> ventas = ventaDAO.readAllFromClienteForComercio(8, merchantId);
-		System.out.println(" --- readAllFromClienteForComercio(8, merchantId).size(): " + ventas.size());
-		
-		Collection<Venta> ventas2 = ventaDAO.readAllForComercio(merchantId);
-		System.out.println(" --- readAllForComercio(merchantId).size(): " + ventas2.size());
-		*/
-		
-		int numVentas = comercio.getVentas().size();
+		Collection<Venta> misVentas = comercio.getVentas();
+		int numVentas = misVentas.size();
 		
 		Set<Integer> idClientesDistintos = new HashSet<Integer>();
 		double sumaImporte = 0.0;
@@ -390,7 +375,7 @@ public class ComercioServlet extends HttpServlet {
 						break;
 				}
 				
-				//printMap3(ventasImportesPorEdadAux);
+				//printMapStringdoubleArr(ventasImportesPorEdadAux);
 				
 				int idCliente = v.getPersona().getId();
 				if (clientesYSusVentas.containsKey(idCliente)) {
@@ -414,7 +399,7 @@ public class ComercioServlet extends HttpServlet {
 			
 		}
 		
-		printMap4(clientesYSusVentas);
+		printMapIntegerdoubleArr(clientesYSusVentas);
 		
 		int numClientesUnaVez = 0;
 		int numClientesDosVeces = 0;
@@ -594,6 +579,8 @@ public class ComercioServlet extends HttpServlet {
 		req.getSession().setAttribute("porc_clientes_una_vez_str", porcClientesUnaVezStr); 
 		req.getSession().setAttribute("porc_clientes_dos_veces_str", porcClientesDosVecesStr);
 		req.getSession().setAttribute("porc_clientes_tres_o_mas_veces_str", porcClientesTresOMasVecesStr);
+		
+		*/
 		
 		getServletContext().getRequestDispatcher("/ComercioView.jsp").forward(req, resp);		
 
