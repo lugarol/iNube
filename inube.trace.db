@@ -1,0 +1,56 @@
+2019-04-03 16:51:38 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DELETE *[*] FROM COMERCIANTE"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE *[*] FROM COMERCIANTE"; expected "identifier"; SQL statement:
+DELETE * FROM COMERCIANTE [42001-197]
+2019-04-03 17:45:30 jdbc[64]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "COMERCIANTE[*]"; se esperaba "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT, {"
+Syntax error in SQL statement "COMERCIANTE[*]"; expected "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT, {"; SQL statement:
+COMERCIANTE [42001-197]
+2019-04-04 13:57:03 jdbc[291]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "COMERCIANTES" no encontrada
+Table "COMERCIANTES" not found; SQL statement:
+SELECT * FROM COMERCIantes [42102-197]
+2019-04-04 15:34:19 jdbc[394]: exception
+org.h2.jdbc.JdbcSQLException: Columna "M1" no encontrada
+Column "M1" not found; SQL statement:
+insert into venta values(35, '2019-02-19 09:02:00', 21.0, m1, 11) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.dml.Insert.prepare(Insert.java:314)
+	at org.h2.command.Parser.prepareCommand(Parser.java:283)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)
+2019-04-04 16:06:16 jdbc[395]: exception
+org.h2.jdbc.JdbcSQLException: Columna "M1" no encontrada
+Column "M1" not found; SQL statement:
+insert into venta values(38, '2019-02-15 19:52:00', 12.0, m1, 15) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.dml.Insert.prepare(Insert.java:314)
+	at org.h2.command.Parser.prepareCommand(Parser.java:283)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)
