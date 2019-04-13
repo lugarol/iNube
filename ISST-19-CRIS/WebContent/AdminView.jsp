@@ -35,11 +35,11 @@
 						<th>Usuario</th>
 						<th>Nº comercios</th>
 					</tr>
-					<c:forEach items="${comerciante_list}" var="comerciante">
+					<c:forEach items="${allComerciantes}" var="comerciantei">
 						<tr>
-							<td>${comerciante.id}</td>
-							<td>${comerciante.usuario}</td>
-							<td>${fn:length(comerciante.comercios)}</td>
+							<td>${comerciantei.id}</td>
+							<td>${comerciantei.usuario}</td>
+							<td>${fn:length(comerciantei.comercios)}</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -56,9 +56,9 @@
 						Comercio:
 						<select name="comercio">
 							<option value="" disabled selected>Elegir comercio</option>
-							<c:forEach items="${comercio_list}" var="comercioi">
+							<c:forEach items="${allComercios}" var="comercioi">
 								<option value="${comercioi.merchantId}">
-									Nombre: ${comercioi.nombreComercio}, sector: ${comercioi.sector}, CP: ${comercioi.cp}, cmrcte: ${comercioi.comerciante.usuario}
+									Nombre: ${comercioi.nombreComercio} / sector: ${comercioi.sector} / CP: ${comercioi.cp} / comerciante: ${comercioi.comerciante.usuario}
 								</option>
 							</c:forEach>
 						</select> 
@@ -67,9 +67,9 @@
 						Comprador:
 						<select name="comprador">
 							<option value="" disabled selected>Elegir comprador</option>
-							<c:forEach items="${cliente_list}" var="clientei">
+							<c:forEach items="${allClientes}" var="clientei">
 								<option value="${clientei.id}">
-									cp: ${clientei.cp}, sexo <c:if test="${clientei.sexo == 0}">H</c:if><c:if test="${clientei.sexo == 1}">M</c:if>, edad ${clientei.edad}
+									cp: ${clientei.cp} / sexo <c:if test="${clientei.sexo == 0}">H</c:if><c:if test="${clientei.sexo == 1}">M</c:if> / edad ${clientei.edad}
 								</option>
 							</c:forEach>
 						</select>
@@ -86,7 +86,7 @@
 						<th>Nombre comercio</th>
 						<th>Id persona</th>
 					</tr>
-					<c:forEach items="${venta_list}" var="ventai">
+					<c:forEach items="${allVentas}" var="ventai">
 						<tr>
 							<td>${ventai.id}</td>
 							<!-- <td>${ventai.fecha}</td> -->
@@ -127,7 +127,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${cliente_list}" var="clientei">
+						<c:forEach items="${allClientes}" var="clientei">
 							<tr>
 								<td>${clientei.id}</td>
 								<td>${clientei.cp}</td>

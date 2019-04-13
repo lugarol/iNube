@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Comercio View</title>
+		<title>Ver Comercio Estad Indiv View</title>
 		<link rel="stylesheet" type="text/css" href="css/verComercioEstadIndiv_styles.css">
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript">
@@ -14,23 +14,23 @@
 		    google.load('visualization', '1.0', {'packages': ['corechart']});
 		
 		    // Set a callback to run when the Google Visualization API is loaded.
-		    google.setOnLoadCallback(drawChart_numVentasEImportePorHora);
-		    google.setOnLoadCallback(drawChart_importeVentasPorSexo);
-		    google.setOnLoadCallback(drawChart_numVentasPorSexo);
-		    google.setOnLoadCallback(drawChart_numVentasEImportePorEdad);
-		    google.setOnLoadCallback(drawChart_numVentasEImportePorDiaSemana);
-		    google.setOnLoadCallback(drawChart_numVentasEImportePorCP);
-		    google.setOnLoadCallback(drawChart_fidelidadClientes);
+		    google.setOnLoadCallback(drawChart1_numVentasEImportePorHora);
+		    google.setOnLoadCallback(drawChart2_numVentasPorSexo);
+		    google.setOnLoadCallback(drawChart3_importeVentasPorSexo);
+		    google.setOnLoadCallback(drawChart4_numVentasEImportePorEdad);
+		    google.setOnLoadCallback(drawChart5_numVentasEImportePorDiaSemana);
+		    google.setOnLoadCallback(drawChart6_numVentasEImportePorCP);
+		    google.setOnLoadCallback(drawChart7_fidelidadClientes);
 		    
-		    function drawChart_numVentasEImportePorHora() {
-		    	var data3 = google.visualization.arrayToDataTable([
+		    function drawChart1_numVentasEImportePorHora() {
+		    	var data1 = google.visualization.arrayToDataTable([
 		    		['Hora', 'Nº ventas', 'Importe ventas'],
-		    		<c:forEach items="${num_ventas_e_importes_hora}" var="horai">
+		    		<c:forEach items="${numVentasEImportePorHora}" var="horai">
 			    		['${horai.key}h', ${horai.value[0]}, ${horai.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options3 = {
+		    	var options1 = {
 	    			'title': 'Nº ventas e importe por hora',
 	    			width: 1700,
 	    			height: 500,
@@ -44,53 +44,53 @@
 	    			}
 		    	};
 		    	
-		    	var chart3 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_hora'));
-		    	chart3.draw(data3, options3);
+		    	var chart1 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_hora'));
+		    	chart1.draw(data1, options1);
 		    }
 		    
-		    function drawChart_importeVentasPorSexo() {
-		    	var data5 = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Importe'],
-		    		['Hombres', ${importe_hombres}],
-		    		['Mujeres', ${importe_mujeres}]
-		    	]);
-		    	
-		    	var options5 = {
-		    		'title': 'Importe ventas por sexo',
-		    		pieSliceText: 'label',
-		    		tooltip :  {showColorCode: true}
-		    	};
-		    	
-		    	var chart5 = new google.visualization.PieChart(document.getElementById('pie_chart_importe_por_sexo'));
-		    	chart5.draw(data5, options5);
-		    }
-		    
-		    function drawChart_numVentasPorSexo() {
-		    	var data5 = google.visualization.arrayToDataTable([
+		    function drawChart2_numVentasPorSexo() {
+		    	var data2 = google.visualization.arrayToDataTable([
 		    		['Sexo', 'Nº ventas'],
-		    		['Hombres', ${num_ventas_hombres}],
-		    		['Mujeres', ${num_ventas_mujeres}]
+		    		['Hombres', ${numVentasHombres}],
+		    		['Mujeres', ${numVentasMujeres}]
 		    	]);
 		    	
-		    	var options5 = {
+		    	var options2 = {
 		    		'title': 'Nº ventas por sexo',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true}
 		    	};
 		    	
-		    	var chart5 = new google.visualization.PieChart(document.getElementById('pie_chart_num_ventas_por_sexo'));
-		    	chart5.draw(data5, options5);
+		    	var chart2 = new google.visualization.PieChart(document.getElementById('pie_chart_num_ventas_por_sexo'));
+		    	chart2.draw(data2, options2);
 		    }
 		    
-		    function drawChart_numVentasEImportePorEdad() {
+		    function drawChart3_importeVentasPorSexo() {
 		    	var data3 = google.visualization.arrayToDataTable([
+		    		['Sexo', 'Importe'],
+		    		['Hombres', ${importeHombres}],
+		    		['Mujeres', ${importeMujeres}]
+		    	]);
+		    	
+		    	var options3 = {
+		    		'title': 'Importe ventas por sexo',
+		    		pieSliceText: 'label',
+		    		tooltip :  {showColorCode: true}
+		    	};
+		    	
+		    	var chart3 = new google.visualization.PieChart(document.getElementById('pie_chart_importe_por_sexo'));
+		    	chart3.draw(data3, options3);
+		    }
+		    
+		    function drawChart4_numVentasEImportePorEdad() {
+		    	var data4 = google.visualization.arrayToDataTable([
 		    		['Edad', 'Nº ventas', 'Importe ventas'],
-		    		<c:forEach items="${num_ventas_e_importes_edad}" var="edadi">
+		    		<c:forEach items="${numVentasEImportePorEdad}" var="edadi">
 			    		['${edadi.key}', ${edadi.value[0]}, ${edadi.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options3 = {
+		    	var options4 = {
 	    			'title': 'Nº ventas e importe por edad',
 	    			width: 1700,
 	    			height: 500,
@@ -104,19 +104,19 @@
 	    			}
 		    	};
 		    	
-		    	var chart3 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_edad'));
-		    	chart3.draw(data3, options3);
+		    	var chart4 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_edad'));
+		    	chart4.draw(data4, options4);
 		    }  
 		    
-		    function drawChart_numVentasEImportePorDiaSemana() {
-		    	var data6 = google.visualization.arrayToDataTable([
+		    function drawChart5_numVentasEImportePorDiaSemana() {
+		    	var data5 = google.visualization.arrayToDataTable([
 		    		['Día de la semana', 'Nº ventas', 'Importe ventas'],
-		    		<c:forEach items="${num_ventas_e_importes_dia_semana_str}" var="diai">
+		    		<c:forEach items="${numVentasEImportePorDiaSemana}" var="diai">
 			    		['${diai.key}', ${diai.value[0]}, ${diai.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options6 = {
+		    	var options5 = {
 	    			'title': 'Nº ventas e importe por día semana',
 	    			width: 1700,
 	    			height: 500,
@@ -130,19 +130,19 @@
 	    			}
 		    	};
 		    	
-		    	var chart6 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_dia_semana'));
-		    	chart6.draw(data6, options6);
+		    	var chart5 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_dia_semana'));
+		    	chart5.draw(data5, options5);
 		    }
 		    
-		    function drawChart_numVentasEImportePorCP() {
-		    	var data7 = google.visualization.arrayToDataTable([
+		    function drawChart6_numVentasEImportePorCP() {
+		    	var data6 = google.visualization.arrayToDataTable([
 		    		['CP', 'Nº ventas', 'Importe ventas'],
-		    		<c:forEach items="${num_ventas_e_importes_cp}" var="cpi">
+		    		<c:forEach items="${numVentasEImportePorCp}" var="cpi">
 			    		['${cpi.key}', ${cpi.value[0]}, ${cpi.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options7 = {
+		    	var options6 = {
 	    			'title': 'Nº ventas e importe por CP',
 	    			width: 1700,
 	    			height: 500,
@@ -156,19 +156,19 @@
 	    			}
 		    	};
 		    	
-		    	var chart7 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_cp'));
-		    	chart7.draw(data7, options7);
+		    	var chart6 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_cp'));
+		    	chart6.draw(data6, options6);
 		    }
 		    
-		    function drawChart_fidelidadClientes() {
-		    	var data8 = google.visualization.arrayToDataTable([
+		    function drawChart7_fidelidadClientes() {
+		    	var data7 = google.visualization.arrayToDataTable([
 		    		['Veces', '%'],
-		    		['1 vez', ${porc_clientes_una_vez}],
-		    		['2 veces', ${porc_clientes_dos_veces}],
-		    		['3+ veces', ${porc_clientes_tres_o_mas_veces}]
+		    		['1 vez', ${porcClientesUnaVez}],
+		    		['2 veces', ${porcClientesDosVeces}],
+		    		['3+ veces', ${porcClientesTresOMasVeces}]
 		    	]);
 		    	
-		    	var options8 = {
+		    	var options7 = {
 	    			'title': 'Fidelidad clientes (veces que han venido)',
 	    			width: 500,
 	    			height: 500,
@@ -178,49 +178,8 @@
 	    			}
 		    	};
 		    	
-		    	var chart8 = new google.visualization.ColumnChart(document.getElementById('col_chart_fidelidad_clientes'));
-		    	chart8.draw(data8, options8);
-		    }
-		    
-		    
-		    
-
-		    function drawChart2() {
-		    	var data2 = google.visualization.arrayToDataTable([
-		    		['Hora', 'Nº ventas'],
-		    		<c:forEach items="${horas_venta}" var="horai">
-		    			['${horai.key}', ${horai.value}],
-		    		</c:forEach>
-		    	]);
-		    	
-		    	var options2 = {
-	    			'title': 'Nº ventas por hora',
-	    			width: 1700,
-	    			height: 500,
-	    			bar: {groupWidth: '90%'}
-		    	}
-		    	
-		    	var chart2 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas'));
-		    	chart2.draw(data2, options2);
-		    }
-		    
-		    function drawChart4() {
-		    	var data4 = google.visualization.arrayToDataTable([
-		    		['Hora', 'Importe', {role: 'style'}],
-		    		<c:forEach items="${importe_ventas_hora}" var="horai">
-		    			['${horai.key}', ${horai.value}, 'red'],
-		    		</c:forEach>
-		    	]);
-		    	
-		    	var options4 = {
-	    			'title': 'Importe por hora',
-	    			width: 1700,
-	    			height: 500,
-	    			bar: {groupWidth: '90%'}
-		    	}
-		    	
-		    	var chart4 = new google.visualization.ColumnChart(document.getElementById('col_chart_importe'));
-		    	chart4.draw(data4, options4);
+		    	var chart7 = new google.visualization.ColumnChart(document.getElementById('col_chart_fidelidad_clientes'));
+		    	chart7.draw(data7, options7);
 		    }
 		    
 		</script>
@@ -234,7 +193,7 @@
 		<hr>
 		
 		<shiro:hasRole name="comerciante">
-			<p><a href="ComercianteServlet">&lt; Volver a vista comerciante</a></p>
+			<p><a href="SeleccionarComercioEstadIndivServlet">&lt; Volver a vista comerciante</a></p>
 			
 			<h2>Vista de comercio</h2>
 		
@@ -243,7 +202,7 @@
 				<thead>
 					<tr>
 						<th>MerchantID</th>
-						<th>Nombre comercio</th>
+						<th>Nombre del comercio</th>
 						<th>Sector</th>
 						<th>CP</th>
 						<th>Banco</th>
@@ -259,131 +218,31 @@
 					</tr>
 				</tbody>
 			</table>
-			<p>Nº ventas: ${num_ventas} || Suma importe: ${suma_importe} || Importe medio: ${importe_medio} </p>
-			<p>Nº clientes distintos: ${num_clientes_distintos} || Importe hombres: ${importe_hombres}€ || Importe mujeres: ${importe_mujeres}€</p>
-			
-			<!-- <p>Un ${porc_clientes_una_vez_str}% de los clientes (${num_clientes_una_vez}/${num_clientes_distintos}) ha venido una vez.</p> -->
-			<!-- <p>Un ${porc_clientes_dos_veces_str}% de los clientes (${num_clientes_dos_veces}/${num_clientes_distintos}) ha venido dos veces.</p> -->
-			<!-- <p>Un ${porc_clientes_tres_o_mas_veces_str}% de los clientes (${num_clientes_tres_o_mas_veces}/${num_clientes_distintos}) ha venido tres o más veces.</p> -->
+			<p>Nº ventas: ${numVentas} || Suma importe: ${importeTotal}€ || Nº clientes distintos: ${numClientesDistintos} || Importe medio: ${importeMedio}€ </p>
 			
 			<!-- Si no hay ventas no mostrar esto (variable num_ventas) -->
-			<div style="width: 500px;">
-		        <div id="col_chart_fidelidad_clientes"></div>
-		    </div>
 		    <div style="width: 500px;">
 		        <div id="col_chart_num_ventas_importe_por_hora"></div>
 		    </div>
 		    <div style="width: 500px;">
-		        <div id="pie_chart_importe_por_sexo"></div>
-		    </div>
-		    <div style="width: 500px;">
-		        <div id="pie_chart_num_ventas_por_sexo"></div>
-		    </div>
-		    <div style="width: 500px;">
-		        <div id="col_chart_num_ventas_importe_por_edad"></div>
-		    </div>
-		    <div style="width: 500px;">
-		        <div id="col_chart_num_ventas_importe_por_dia_semana"></div>
-		    </div>
-		    <div style="width: 500px;">
-		        <div id="col_chart_num_ventas_importe_por_cp"></div>
-		    </div>
-		    
-		    
-		    
-		    <div style="width: 500px;">
-		        <div id="col_chart_num_ventas"></div>
-		    </div>
-		    <div style="width: 500px;">
-		        <div id="col_chart_importe"></div>
-		    </div>		    
+				<div id="pie_chart_num_ventas_por_sexo"></div>
+			</div>
+			<div style="width: 500px;">
+				<div id="pie_chart_importe_por_sexo"></div>
+			</div>
+			<div style="width: 500px;">
+				<div id="col_chart_num_ventas_importe_por_edad"></div>
+			</div>
+			<div style="width: 500px;">
+				<div id="col_chart_num_ventas_importe_por_dia_semana"></div>
+			</div>
+			<div style="width: 500px;">
+				<div id="col_chart_num_ventas_importe_por_cp"></div>
+			</div>
+			<div style="width: 500px;">
+				<div id="col_chart_fidelidad_clientes"></div>
+			</div>
 			
-			<h3>Ventas</h3>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Fecha</th>
-						<th>Importe</th>
-						<th>CP cliente</th>
-						<th>Sexo cliente</th>
-						<th>Edad cliente</th>
-						<th>Id cliente</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${comercio.ventas}" var="venta">
-						<tr>
-							<td>${venta.id}</td>
-							<td>${venta.fecha}</td>
-							<td>${venta.importe}</td>
-							<td>${venta.persona.cp}</td>
-							<td>
-								<c:if test="${venta.persona.sexo == 0}">Hombre</c:if>
-								<c:if test="${venta.persona.sexo == 1}">Mujer</c:if>
-							</td>
-							<td>${venta.persona.edad}</td>
-							<td>${venta.persona.id}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			
-			<h4>Distribución por horas</h4>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>Hora</th>
-						<th>Nº ventas</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${horas_venta}" var="horai">
-						<tr>
-							<td>${horai.key}</td>
-							<td>${horai.value}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			
-			<h4>Importe por horas</h4>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>Hora</th>
-						<th>Importe ventas</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${importe_ventas_hora}" var="horai">
-						<tr>
-							<td>${horai.key}</td>
-							<td>${horai.value}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			
-			<h4>Nº ventas e importe por horas</h4>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>Hora</th>
-						<th>Nº ventas</th>
-						<th>Importe ventas</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${num_ventas_e_importes_hora}" var="horai">
-						<tr>
-							<td>${horai.key}</td>
-							<td>${horai.value[0]}</td>
-							<td>${horai.value[1]}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
 		</shiro:hasRole>
 		
 		<shiro:lacksRole name="comerciante">

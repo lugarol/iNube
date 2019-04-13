@@ -28,20 +28,12 @@ public class AdminServlet extends HttpServlet {
 		ComercioDAO comercioDao = ComercioDAOImplementation.getInstance();
 		VentaDAO ventaDao = VentaDAOImplementation.getInstance();
 		
-		req.getSession().setAttribute("cliente_list", clienteDao.readAll());
-		req.getSession().setAttribute("comerciante_list", comercianteDao.readAll());
-		req.getSession().setAttribute("comercio_list", comercioDao.readAll());
-		req.getSession().setAttribute("venta_list", ventaDao.readAll());
+		req.getSession().setAttribute("allClientes", clienteDao.readAll());
+		req.getSession().setAttribute("allComerciantes", comercianteDao.readAll());
+		req.getSession().setAttribute("allComercios", comercioDao.readAll());
+		req.getSession().setAttribute("allVentas", ventaDao.readAll());
 		
 		getServletContext().getRequestDispatcher("/AdminView.jsp").forward(req, resp);
-		
-		/*
-		ProfessorDAO pdao = ProfessorDAOImplementation.getInstance();
-		req.getSession().setAttribute( "professor_list", pdao.readAll() );
-		TFGDAO tdao = TFGDAOImplementation.getInstance();
-		req.getSession().setAttribute( "tfg_list", tdao.readAll() );
-		
-		getServletContext().getRequestDispatcher( "/AdminView.jsp" ).forward( req, resp );
-		*/
+
 	}
 }
