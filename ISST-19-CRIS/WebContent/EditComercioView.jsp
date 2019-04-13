@@ -11,6 +11,36 @@
 	</head>
 	
 	<body>
+	
+		<nav class="navbar navbar-expand navbar-light bg-light">
+			<a class="navbar-brand" href="#">
+				<img src="img/logo.png" height="50"/>
+			</a>
+			
+			<ul class="navbar-nav mr-auto">
+				<shiro:user>
+					<li class="nav-item">
+						<a class="nav-link" href="LoginServlet">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Estadísticas individuales</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Estadísticas comparadas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Gestiona tu cuenta</a>
+					</li>
+				</shiro:user>
+			</ul>
+			
+			<shiro:guest>
+				<form class="form-inline my-2 my-lg-0" action="CreateComercianteServlet" method="get">
+					<button class="btn btn-primary btn-lg" type="submit">Regístrate</button>
+				</form>
+			</shiro:guest>
+			
+		</nav>
 		
 		<shiro:hasRole name="comerciante">
 			<p>¡Bienvenido, <shiro:principal />! Haz clic <a href="LogoutServlet">aquí</a> para cerrar sesión.</p>

@@ -25,14 +25,5 @@ public class MenuComercianteServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/MenuComercianteView.jsp").forward(req, resp);
 
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		System.out.println(" ------------------------------------ ");
-		System.out.println(" MenuComercianteServlet > doPost ");
-		System.out.println(" ------------------------------------ ");
-	
-	}
 
 }

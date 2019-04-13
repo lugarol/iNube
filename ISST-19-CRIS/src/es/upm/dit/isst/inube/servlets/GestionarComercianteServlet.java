@@ -43,29 +43,10 @@ public class GestionarComercianteServlet extends HttpServlet {
 		Comerciante comerciante = comercianteDao.readFromUsuario(currentUserPrincipal);
 		int idComerciante = comerciante.getId();
 		
-		/* revisar quitar
-		if (comerciante != null) {
-			System.out.println(" --- ComercianteServlet - comerciante.getUsuario(): " + comerciante.getUsuario());
-			System.out.println(" --- ComercianteServlet - comerciante.getId(): " + comerciante.getId());
-		} else {
-			System.out.println(" --- ComercianteServlet: comerciante es null");
-		}
-		*/
-		
+		// obtener mis comercios
 		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
-		/* revisar quitar
-		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
-		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
-		*/
-		
 		Collection<Comercio> misComercios = comercioDAO.readAllFromComerciante(idComerciante);	
-		
-		/* revisar quitar
-		req.getSession().setAttribute("cliente_list", clienteDao.readAll());
-		req.getSession().setAttribute("comerciante_list", comercianteDao.readAll());
-		req.getSession().setAttribute("comercio_list", comercioDao.readAll());
-		req.getSession().setAttribute("venta_list", ventaDao.readAll());
-		*/
+
 		req.getSession().setAttribute("misComercios", misComercios);
 		req.getSession().setAttribute("idComerciante", idComerciante);
 		
