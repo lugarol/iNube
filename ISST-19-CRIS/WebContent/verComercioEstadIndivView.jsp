@@ -221,28 +221,35 @@
 			<p>Nº ventas: ${numVentas} || Suma importe: ${importeTotal}€ || Nº clientes distintos: ${numClientesDistintos} || Importe medio: ${importeMedio}€ </p>
 			
 			<!-- Si no hay ventas no mostrar esto (variable num_ventas) -->
-		    <div style="width: 500px;">
-		        <div id="col_chart_num_ventas_importe_por_hora"></div>
-		    </div>
-		    <div style="width: 500px;">
-				<div id="pie_chart_num_ventas_por_sexo"></div>
-			</div>
-			<div style="width: 500px;">
-				<div id="pie_chart_importe_por_sexo"></div>
-			</div>
-			<div style="width: 500px;">
-				<div id="col_chart_num_ventas_importe_por_edad"></div>
-			</div>
-			<div style="width: 500px;">
-				<div id="col_chart_num_ventas_importe_por_dia_semana"></div>
-			</div>
-			<div style="width: 500px;">
-				<div id="col_chart_num_ventas_importe_por_cp"></div>
-			</div>
-			<div style="width: 500px;">
-				<div id="col_chart_fidelidad_clientes"></div>
-			</div>
-			
+			<c:choose>
+				<c:when test="${numVentas > 0}">
+					<div style="width: 500px;">
+				        <div id="col_chart_num_ventas_importe_por_hora"></div>
+				    </div>
+				    <div style="width: 500px;">
+						<div id="pie_chart_num_ventas_por_sexo"></div>
+					</div>
+					<div style="width: 500px;">
+						<div id="pie_chart_importe_por_sexo"></div>
+					</div>
+					<div style="width: 500px;">
+						<div id="col_chart_num_ventas_importe_por_edad"></div>
+					</div>
+					<div style="width: 500px;">
+						<div id="col_chart_num_ventas_importe_por_dia_semana"></div>
+					</div>
+					<div style="width: 500px;">
+						<div id="col_chart_num_ventas_importe_por_cp"></div>
+					</div>
+					<div style="width: 500px;">
+						<div id="col_chart_fidelidad_clientes"></div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<p>No hay ventas para este comercio</p>
+				</c:otherwise>
+			</c:choose>
+		    
 		</shiro:hasRole>
 		
 		<shiro:lacksRole name="comerciante">

@@ -26,67 +26,6 @@ import es.upm.dit.isst.inube.model.*;
 @WebServlet("/VerComercioEstadIndivServlet")
 public class VerComercioEstadIndivServlet extends HttpServlet {
 	
-	public void printMapIntegerInteger(Map<Integer, Integer> map) {
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            System.out.println("Hora: " + entry.getKey() + " | Nº ventas: " + entry.getValue());
-        }
-    }
-	
-	public void printMapIntegerDoubleArr(Map<Integer, Double[]> map) {
-        for (Map.Entry<Integer, Double[]> entry : map.entrySet()) {
-        	Integer hora_kk = entry.getKey();
-        	Double[] array_kk = entry.getValue();
-        	System.out.println("\nlen: " + array_kk.length);
-        	System.out.println("Hora: " + hora_kk + " | array_kk: " + array_kk);
-        	System.out.println("Hora: " + hora_kk + " | [nº ventas, importe]: " + Arrays.toString(array_kk));
-        	System.out.println("Hora: " + hora_kk + " | nº ventas: " + array_kk[0]);
-        	System.out.println("Hora: " + hora_kk + " | importe: " + array_kk[1]);
-        }
-    }
-	
-	public void printMapStringdoubleArr(Map<String, double[]> map) {
-        for (Map.Entry<String, double[]> entry : map.entrySet()) {
-        	String rangoEdad = entry.getKey();
-        	double[] array_kk = entry.getValue();
-        	System.out.println("Edad: " + rangoEdad + " | [nº ventas, importe]: " + Arrays.toString(array_kk));
-        }
-    }
-	
-	public void printMapIntegerdoubleArr(Map<Integer, double[]> map) {
-        for (Map.Entry<Integer, double[]> entry : map.entrySet()) {
-        	int idCliente = entry.getKey();
-        	double[] array_kk = entry.getValue();
-        	System.out.println("idCliente: " + idCliente + " | [nº ventas, importe]: " + Arrays.toString(array_kk));
-        }
-    }
-	
-	public void printMapStringDoubleArr(Map<String, Double[]> map) {
-        for (Map.Entry<String, Double[]> entry : map.entrySet()) {
-        	String rangoEdad = entry.getKey();
-        	Double[] array_kk = entry.getValue();
-        	System.out.println("Día semana: " + rangoEdad + " | [nº ventas, importe]: " + Arrays.toString(array_kk));
-        }
-    }
-	
-	public String getDiaDeLaSemanaStr(int diaSemana) {
-		if (diaSemana == 1) {
-			return "Domingo";
-		} else if (diaSemana == 2) {
-			return "Lunes";
-		} else if (diaSemana == 3) {
-			return "Martes";
-		} else if (diaSemana == 4) {
-			return "Miércoles";
-		} else if (diaSemana == 5) {
-			return "Jueves";
-		} else if (diaSemana == 6) {
-			return "Viernes";
-		} else if (diaSemana == 7) {
-			return "Sábado";
-		}
-		return "";
-	}
-	
 	public String getDiaSemanaStr(int diaSemana) {
 		if (diaSemana == 1) {
 			return "Domingo";
@@ -312,7 +251,6 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		req.getSession().setAttribute("numVentasEImportePorEdad", numVentasEImportePorEdad);
 		req.getSession().setAttribute("numVentasEImportePorDiaSemana", numVentasEImportePorDiaSemana);
 		req.getSession().setAttribute("numVentasEImportePorCp", numVentasEImportePorCp);
-		
 		req.getSession().setAttribute("numClientesDistintos", numClientesDistintos);
 		req.getSession().setAttribute("porcClientesUnaVez", porcClientesUnaVez);
 		req.getSession().setAttribute("porcClientesDosVeces", porcClientesDosVeces);
@@ -321,5 +259,6 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/VerComercioEstadIndivView.jsp").forward(req, resp);
 
 	}
+	
 }
 
