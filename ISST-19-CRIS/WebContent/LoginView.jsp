@@ -19,13 +19,13 @@
 			</a>
 			
 			<ul class="navbar-nav mr-auto">
-				<shiro:hasRole name="admin">
-					<li class="nav-item">
-						<a class="nav-link" href="AdminServlet">Menú de admin</a>
-					</li>
-				</shiro:hasRole>
-				
 				<shiro:user>
+					<shiro:hasRole name="admin">
+						<li class="nav-item">
+							<a class="nav-link" href="AdminServlet">Menú de admin</a>
+						</li>
+					</shiro:hasRole>
+				
 					<shiro:lacksRole name="admin">
 						<li class="nav-item">
 							<a class="nav-link" href="LoginServlet">Home</a>
@@ -65,13 +65,13 @@
 				<form class="form-login" action="LoginServlet" method="post">
 					<h1 class="h3 mb-3 font-weight-normal">Inicia sesión</h1>
 					<input type="text" class="form-control" name="usuario" placeholder="Usuario" required autofocus>
-					<input type="password" class="form-control" name="password" placeholder="Password" required>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+					<input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
 				</form>
 			</shiro:guest>
 			
 			<shiro:user>
-				<h1>¡Hola <shiro:principal />, bienvenido a iNube!</h1>
+				<h1 class="mt-3">¡Hola <shiro:principal />, bienvenido a iNube!</h1>
 			</shiro:user>
 		</div>
 		

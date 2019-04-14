@@ -69,13 +69,6 @@ public class EditComercioServlet extends HttpServlet {
 		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
 		Comerciante comerciante = comercianteDAO.read(idComerciante);
 		
-		System.out.println(" --- EditComercioServlet - comercio.getMerchantId(): " + merchantId);
-		System.out.println(" --- EditComercioServlet - comercio.getNombreComercio(): " + nombreComercio);
-		System.out.println(" --- EditComercioServlet - comercio.getSector(): " + sector);
-		System.out.println(" --- EditComercioServlet - comercio.getCp(): " + cp);
-		System.out.println(" --- EditComercioServlet - comercio.getBanco(): " + banco);
-		System.out.println(" --- EditComercioServlet - comercio.getComerciante().getId(): " + idComerciante);
-		
 		// crear comercio y actualizar los valores
 		Comercio comercio = new Comercio();
 		comercio.setMerchantId(merchantId);
@@ -85,24 +78,9 @@ public class EditComercioServlet extends HttpServlet {
 		comercio.setBanco(banco);
 		comercio.setComerciante(comerciante);
 		
-		System.out.println(" --- EditComercioServlet - (act) comercio.getMerchantId(): " + comercio.getMerchantId());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getNombreComercio(): " + comercio.getNombreComercio());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getSector(): " + comercio.getSector());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getCp(): " + comercio.getCp());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getBanco(): " + comercio.getBanco());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getComerciante().getId(): " + comercio.getComerciante().getId());
-		
 		// actualizar comercio en bbdd
 		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
 		comercioDAO.update(comercio);
-		
-		Comercio comercioComprobar = comercioDAO.read(merchantId);
-		System.out.println(" --- EditComercioServlet - (act) comercio.getMerchantId(): " + comercioComprobar.getMerchantId());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getNombreComercio(): " + comercioComprobar.getNombreComercio());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getSector(): " + comercioComprobar.getSector());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getCp(): " + comercioComprobar.getCp());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getBanco(): " + comercioComprobar.getBanco());
-		System.out.println(" --- EditComercioServlet - (act) comercio.getComerciante().getId(): " + comercioComprobar.getComerciante().getId());
 		
 		// redirigir a GestionarComercianteServlet
 		resp.sendRedirect(req.getContextPath() + "/GestionarComercianteServlet");

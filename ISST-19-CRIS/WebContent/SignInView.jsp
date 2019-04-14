@@ -59,7 +59,8 @@
 				<form class="form-signup-comerciante" action="CreateComercianteServlet" method="post">
 					<h1 class="h3 mb-3 font-weight-normal">Regístrate como comerciante</h1>
 					<input type="text" class="form-control" name="usuario" placeholder="Usuario" required autofocus>
-					<input type="password" class="form-control" name="password1" placeholder="Password" required>
+					<input type="password" class="form-control" name="password1" placeholder="Contraseña" required>
+					<input type="hidden" name="comingFromAdmin" value="no" >
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
 				</form>
 			</shiro:guest>

@@ -19,13 +19,13 @@
 			</a>
 			
 			<ul class="navbar-nav mr-auto">
-				<shiro:hasRole name="admin">
-					<li class="nav-item">
-						<a class="nav-link" href="AdminServlet">Menú de admin</a>
-					</li>
-				</shiro:hasRole>
-				
 				<shiro:user>
+					<shiro:hasRole name="admin">
+						<li class="nav-item">
+							<a class="nav-link" href="AdminServlet">Menú de admin</a>
+						</li>
+					</shiro:hasRole>
+				
 					<shiro:lacksRole name="admin">
 						<li class="nav-item">
 							<a class="nav-link" href="LoginServlet">Home</a>
@@ -61,33 +61,38 @@
 		</nav>
 	
 		<div class="container">
-			<shiro:hasRole name="comerciante">
-				<h2>Consultar estadísticas individuales de tus comercios</h2>
-		    	<form action="SeleccionarComercioEstadIndivServlet" method="get">
-		    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas individuales</button>
-		    	</form>
-		    	
-		    	<hr>
-		    	
-		    	<h2>Consultar estadísticas comparadas</h2>		    	
-		    	<form action="" method="get">
-					<button type="button" class="btn btn-outline-primary mb-4 mt-2">En construcción</button>	
-		    	</form>
-		    	
-		    	<hr>
-		    	
-		    	<h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2>
-		    	<form action="GestionarComercianteServlet" method="get">
-		    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Gestionar</button>
-		    	</form>
-			</shiro:hasRole>
-			
-			<shiro:lacksRole name="comerciante">
-				<h1><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
-			</shiro:lacksRole>
+			<shiro:user>
+				<shiro:hasRole name="comerciante">
+					<h1 class="mb-3 mt-3">Menú del comerciante</h1>
+					
+					<h2>Consultar estadísticas individuales de tus comercios</h2>
+			    	<form action="SeleccionarComercioEstadIndivServlet" method="get">
+			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas individuales</button>
+			    	</form>
+			    	
+			    	<hr>
+			    	
+			    	<h2>Consultar estadísticas comparadas</h2>		    	
+			    	<form action="" method="get">
+						<button type="button" class="btn btn-outline-primary mb-4 mt-2">En construcción</button>	
+			    	</form>
+			    	
+			    	<hr>
+			    	
+			    	<h2>Gestionar tu cuenta (añadir o modificar comercios)</h2>
+			    	<!-- <h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2> -->
+			    	<form action="GestionarComercianteServlet" method="get">
+			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Gestionar</button>
+			    	</form>
+				</shiro:hasRole>
+				
+				<shiro:lacksRole name="comerciante">
+					<h1 class="mb-3 mt-3"><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
+				</shiro:lacksRole>
+			</shiro:user>
 			
 			<shiro:guest>
-				<h1>No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
+				<h1 class="mb-3 mt-3">No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
 			</shiro:guest>
 		</div>
 		

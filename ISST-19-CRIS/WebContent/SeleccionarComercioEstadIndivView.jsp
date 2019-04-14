@@ -19,13 +19,13 @@
 			</a>
 			
 			<ul class="navbar-nav mr-auto">
-				<shiro:hasRole name="admin">
-					<li class="nav-item">
-						<a class="nav-link" href="AdminServlet">Menú de admin</a>
-					</li>
-				</shiro:hasRole>
-				
 				<shiro:user>
+					<shiro:hasRole name="admin">
+						<li class="nav-item">
+							<a class="nav-link" href="AdminServlet">Menú de admin</a>
+						</li>
+					</shiro:hasRole>
+				
 					<shiro:lacksRole name="admin">
 						<li class="nav-item">
 							<a class="nav-link" href="LoginServlet">Home</a>
@@ -61,51 +61,55 @@
 		</nav>
 		
 		<div class="container">
-			<shiro:hasRole name="comerciante">			
-				<h1 class="mb-3">Vista de comerciante</h1>
-				
-				<section>
-					<h3 class="mb-3">Mis comercios</h3>
-					<table class="table table-bordered table-sm table-hover">
-						<thead class="thead-light">
-							<tr>
-								<th class="text-center">MerchantId</th>
-								<th class="text-center">Nombre del comercio</th>
-								<th class="text-center">Sector</th>
-								<th class="text-center">CP</th>
-								<th class="text-center">Banco</th>
-								<th class="text-center">Núm. ventas</th>
-								<th class="text-center">Ver comercio</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${misComercios}" var="comercio">
+			<shiro:user>
+				<shiro:hasRole name="comerciante">			
+					<h1 class="mb-3 mt-3">Vista de comerciante</h1>
+					
+					<section class="col-md-12">
+						<h3 class="mb-3">Mis comercios</h3>
+						<table class="table table-bordered table-sm table-hover">
+							<thead class="thead-light">
 								<tr>
-									<td class="align-middle text-center">${comercio.merchantId}</td>
-									<td class="align-middle text-center">${comercio.nombreComercio}</td>
-									<td class="align-middle text-center">${comercio.sector}</td>
-									<td class="align-middle text-center">${comercio.cp}</td>
-									<td class="align-middle text-center">${comercio.banco}</td>
-									<td class="align-middle text-center">${fn:length(comercio.ventas)}</td>
-									<td class="align-middle text-center">
-										<form action="VerComercioEstadIndivServlet" method="get">
-											<input type="hidden" name="merchantId" value="${comercio.merchantId}"/>
-											<button class="btn btn-outline-primary btn-sm" type="submit">Ver comercio "${comercio.nombreComercio}"</button>
-										</form>
-									</td>
+									<th class="text-center">MerchantId</th>
+									<th class="text-center">Nombre del comercio</th>
+									<th class="text-center">Sector</th>
+									<th class="text-center">CP</th>
+									<th class="text-center">Banco</th>
+									<th class="text-center">Núm. ventas</th>
+									<th class="text-center">Ver estadísticas individuales</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</section>
-			</shiro:hasRole>
-			
-			<shiro:lacksRole name="comerciante">
-				<h1><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
-			</shiro:lacksRole>
+							</thead>
+							<tbody>
+								<c:forEach items="${misComercios}" var="comercio">
+									<tr>
+										<td class="align-middle text-center">${comercio.merchantId}</td>
+										<td class="align-middle text-center">${comercio.nombreComercio}</td>
+										<td class="align-middle text-center">${comercio.sector}</td>
+										<td class="align-middle text-center">${comercio.cp}</td>
+										<td class="align-middle text-center">${comercio.banco}</td>
+										<td class="align-middle text-center">${fn:length(comercio.ventas)}</td>
+										<td class="align-middle text-center">
+											<form action="VerComercioEstadIndivServlet" method="get">
+												<input type="hidden" name="merchantId" value="${comercio.merchantId}"/>
+												<button class="btn btn-outline-primary btn-sm btn-block" type="submit">
+													Ver comercio <span class="font-weight-bold">${comercio.nombreComercio}</span> 
+												</button>
+											</form>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</section>
+				</shiro:hasRole>
+				
+				<shiro:lacksRole name="comerciante">
+					<h1 class="mb-3 mt-3"><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
+				</shiro:lacksRole>
+			</shiro:user>
 			
 			<shiro:guest>
-				<h1>No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
+				<h1 class="mb-3 mt-3">No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
 			</shiro:guest>
 		</div>
 		

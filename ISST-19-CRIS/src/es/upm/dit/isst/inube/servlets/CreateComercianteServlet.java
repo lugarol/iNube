@@ -44,6 +44,7 @@ public class CreateComercianteServlet extends HttpServlet {
 		// recoger parámetros formulario
 		String usuario = req.getParameter("usuario");
 		String password1 = req.getParameter("password1");
+		String comingFromAdmin = req.getParameter("comingFromAdmin");
 		
 		// crear y rellenar objeto comerciante
 		Comerciante comerciante = new Comerciante();
@@ -55,6 +56,12 @@ public class CreateComercianteServlet extends HttpServlet {
 		comercianteDao.create(comerciante);
 		
 		// redirigir al login para que entren en su cuenta
-		resp.sendRedirect(req.getContextPath() + "/LoginServlet");
+		if (comingFromAdmin.equals("yes")) {
+			resp.sendRedirect(req.getContextPath() + "/AdminServlet");
+		} else if (comingFromAdmin.equals("no")) {
+			resp.sendRedirect(req.getContextPath() + "/LoginServlet");
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/LoginServlet");
+		}
 	}
 }
