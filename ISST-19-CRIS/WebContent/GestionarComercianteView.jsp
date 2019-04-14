@@ -61,31 +61,31 @@
 				
 				<section>
 					<h3>Mis comercios</h3>
-					<table class="table table-striped table-bordered table-sm" border="1">
+					<table class="table table-bordered table-sm table-hover" border="1">
 						<thead class="thead-light">
 							<tr>
-								<th>MerchantId</th>
-								<th>Nombre del comercio</th>
-								<th>Sector</th>
-								<th>CP</th>
-								<th>Banco</th>
-								<th>Núm. ventas</th>
-								<th>Editar comercio</th>
+								<th class="text-center">MerchantId</th>
+								<th class="text-center">Nombre del comercio</th>
+								<th class="text-center">Sector</th>
+								<th class="text-center">CP</th>
+								<th class="text-center">Banco</th>
+								<th class="text-center">Núm. ventas</th>
+								<th class="text-center">Editar comercio</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${misComercios}" var="comercio">
 								<tr>
-									<td class="align-middle">${comercio.merchantId}</td>
-									<td class="align-middle">${comercio.nombreComercio}</td>
-									<td class="align-middle">${comercio.sector}</td>
-									<td class="align-middle">${comercio.cp}</td>
-									<td class="align-middle">${comercio.banco}</td>
-									<td class="align-middle">${fn:length(comercio.ventas)}</td>
-									<td class="align-middle">
+									<td class="align-middle text-center">${comercio.merchantId}</td>
+									<td class="align-middle text-center">${comercio.nombreComercio}</td>
+									<td class="align-middle text-center">${comercio.sector}</td>
+									<td class="align-middle text-center">${comercio.cp}</td>
+									<td class="align-middle text-center">${comercio.banco}</td>
+									<td class="align-middle text-center">${fn:length(comercio.ventas)}</td>
+									<td class="align-middle text-center">
 										<form action="EditComercioServlet" method="get">
 											<input type="hidden" name="merchantId" value="${comercio.merchantId}"/>
-											<button class="btn btn-outline-primary" type="submit">Editar comercio "${comercio.nombreComercio}"</button>
+											<button class="btn btn-outline-primary btn-sm" type="submit">Editar comercio "${comercio.nombreComercio}"</button>
 										</form>
 									</td>
 								</tr>

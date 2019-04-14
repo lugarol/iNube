@@ -67,19 +67,23 @@
 					</form>
 					
 					<h3>Lista de comerciantes</h3>
-					<table class="table" border="1">
-						<tr>
-							<th>Id</th>
-							<th>Usuario</th>
-							<th>Nº comercios</th>
-						</tr>
-						<c:forEach items="${allComerciantes}" var="comerciantei">
+					<table class="table table-bordered table-sm table-hover">
+						<thead class="thead-light">
 							<tr>
-								<td>${comerciantei.id}</td>
-								<td>${comerciantei.usuario}</td>
-								<td>${fn:length(comerciantei.comercios)}</td>
+								<th>Id</th>
+								<th>Usuario</th>
+								<th>Nº comercios</th>
 							</tr>
-						</c:forEach>
+						</thead>
+						<tbody>
+							<c:forEach items="${allComerciantes}" var="comerciantei">
+								<tr>
+									<td>${comerciantei.id}</td>
+									<td>${comerciantei.usuario}</td>
+									<td>${fn:length(comerciantei.comercios)}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</section>
 				
@@ -116,26 +120,30 @@
 					</form>
 					
 					<h3>Lista de ventas</h3>
-					<table class="table" border="1">
-						<tr>
-							<th>Id</th>
-							<th>Fecha</th>
-							<th>Importe</th>
-							<th>Nombre comercio</th>
-							<th>Id persona</th>
-						</tr>
-						<c:forEach items="${allVentas}" var="ventai">
+					<table class="table table-bordered table-sm table-hover">
+						<thead class="thead-light">
 							<tr>
-								<td>${ventai.id}</td>
-								<!-- <td>${ventai.fecha}</td> -->
-								<!-- <td><fmt:formatDate type="both" value="${ventai.fecha}" /></td> -->
-								<!-- https://www.tutorialspoint.com/jsp/jstl_format_formatdate_tag.htm -->
-								<td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${ventai.fecha}" /></td>
-								<td>${ventai.importe}</td>
-								<td>${ventai.comercio.nombreComercio}</td>
-								<td>${ventai.persona.id}</td>
+								<th>Id</th>
+								<th>Fecha</th>
+								<th>Importe</th>
+								<th>Nombre comercio</th>
+								<th>Id persona</th>
 							</tr>
-						</c:forEach>
+						</thead>
+						<tbody>
+							<c:forEach items="${allVentas}" var="ventai">
+								<tr>
+									<td>${ventai.id}</td>
+									<!-- <td>${ventai.fecha}</td> -->
+									<!-- <td><fmt:formatDate type="both" value="${ventai.fecha}" /></td> -->
+									<!-- https://www.tutorialspoint.com/jsp/jstl_format_formatdate_tag.htm -->
+									<td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${ventai.fecha}" /></td>
+									<td>${ventai.importe}</td>
+									<td>${ventai.comercio.nombreComercio}</td>
+									<td>${ventai.persona.id}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</section>
 				
@@ -155,8 +163,8 @@
 					</form>
 					
 					<h3>Lista de clientes</h3>
-					<table class="table" border="1">
-						<thead>
+					<table class="table table-bordered table-sm table-hover">
+						<thead class="thead-light">
 							<tr>
 								<th>Id</th>
 								<th>CP</th>

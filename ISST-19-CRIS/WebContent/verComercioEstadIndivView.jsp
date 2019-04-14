@@ -8,6 +8,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Ver Comercio Estad Indiv View</title>
 		<link rel="stylesheet" type="text/css" href="css/verComercioEstadIndiv_styles.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript">
 		    // Load the Visualization API and the piechart package.
@@ -32,8 +34,6 @@
 		    	
 		    	var options1 = {
 	    			'title': 'Nº ventas e importe por hora',
-	    			width: 1700,
-	    			height: 500,
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -92,8 +92,6 @@
 		    	
 		    	var options4 = {
 	    			'title': 'Nº ventas e importe por edad',
-	    			width: 1700,
-	    			height: 500,
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -118,8 +116,6 @@
 		    	
 		    	var options5 = {
 	    			'title': 'Nº ventas e importe por día semana',
-	    			width: 1700,
-	    			height: 500,
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -144,8 +140,6 @@
 		    	
 		    	var options6 = {
 	    			'title': 'Nº ventas e importe por CP',
-	    			width: 1700,
-	    			height: 500,
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -170,8 +164,6 @@
 		    	
 		    	var options7 = {
 	    			'title': 'Fidelidad clientes (veces que han venido)',
-	    			width: 500,
-	    			height: 500,
 	    			bar: {groupWidth: '90%'},
 	    			vAxis: {
 	    				format: '#\'%\''
@@ -186,75 +178,133 @@
 	</head>
 	
 	<body>
-		<shiro:user>
-		    Welcome back, <shiro:principal />! Click <a href="LogoutServlet">here</a> to logout.
-		</shiro:user>
-		
-		<hr>
-		
-		<shiro:hasRole name="comerciante">
-			<p><a href="SeleccionarComercioEstadIndivServlet">&lt; Volver a vista comerciante</a></p>
+	
+		<nav class="navbar sticky-top navbar-expand navbar-light bg-light">
+			<a class="navbar-brand" href="LoginServlet">
+				<img src="img/logo.png" height="50"/>
+			</a>
 			
-			<h2>Vista de comercio</h2>
-		
-			<h3>Comercio</h3>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>MerchantID</th>
-						<th>Nombre del comercio</th>
-						<th>Sector</th>
-						<th>CP</th>
-						<th>Banco</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>${comercio.merchantId}</td>
-						<td>${comercio.nombreComercio}</td>
-						<td>${comercio.sector}</td>
-						<td>${comercio.cp}</td>
-						<td>${comercio.banco}</td>
-					</tr>
-				</tbody>
-			</table>
-			<p>Nº ventas: ${numVentas} || Suma importe: ${importeTotal}€ || Nº clientes distintos: ${numClientesDistintos} || Importe medio: ${importeMedio}€ </p>
+			<ul class="navbar-nav mr-auto">
+				<shiro:hasRole name="admin">
+					<li class="nav-item">
+						<a class="nav-link" href="AdminServlet">Menú de admin</a>
+					</li>
+				</shiro:hasRole>
+				
+				<shiro:user>
+					<shiro:lacksRole name="admin">
+						<li class="nav-item">
+							<a class="nav-link" href="LoginServlet">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="MenuComercianteServlet">Menú</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Estadísticas comparadas</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="GestionarComercianteServlet">Gestiona tu cuenta</a>
+						</li>
+					</shiro:lacksRole>
+				</shiro:user>
+			</ul>
 			
-			<!-- Si no hay ventas no mostrar esto (variable num_ventas) -->
-			<c:choose>
-				<c:when test="${numVentas > 0}">
-					<div style="width: 500px;">
-				        <div id="col_chart_num_ventas_importe_por_hora"></div>
-				    </div>
-				    <div style="width: 500px;">
-						<div id="pie_chart_num_ventas_por_sexo"></div>
-					</div>
-					<div style="width: 500px;">
-						<div id="pie_chart_importe_por_sexo"></div>
-					</div>
-					<div style="width: 500px;">
-						<div id="col_chart_num_ventas_importe_por_edad"></div>
-					</div>
-					<div style="width: 500px;">
-						<div id="col_chart_num_ventas_importe_por_dia_semana"></div>
-					</div>
-					<div style="width: 500px;">
-						<div id="col_chart_num_ventas_importe_por_cp"></div>
-					</div>
-					<div style="width: 500px;">
-						<div id="col_chart_fidelidad_clientes"></div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<p>No hay ventas para este comercio</p>
-				</c:otherwise>
-			</c:choose>
-		    
-		</shiro:hasRole>
+			<shiro:user>
+				<form class="form-inline my-2 my-lg-0" action="LogoutServlet" method="get">
+					<button class="btn btn-primary btn-lg" type="submit">Cerrar sesión</button>
+				</form>
+			</shiro:user>
+			
+			<shiro:guest>
+				<form class="form-inline my-2 my-lg-0" action="CreateComercianteServlet" method="get">
+					<button class="btn btn-primary btn-lg" type="submit">Regístrate</button>
+				</form>
+			</shiro:guest>
+			
+		</nav>
 		
-		<shiro:lacksRole name="comerciante">
-			<p>No eres comerciante</p> 
-		</shiro:lacksRole>
+		<div class="container">			
+			<shiro:hasRole name="comerciante">
+				<p><a href="SeleccionarComercioEstadIndivServlet">&lt; Volver a Estadísticas individuales</a></p>
+				<input type="button" value="Go Back From Where You Came!" onclick="history.back(-1)" />
+				
+				<h1 class="mb-3">Vista de comercio</h1>
+			
+				<h3>Comercio</h3>
+				<table class="table table-bordered table-sm table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th class="text-center">MerchantID</th>
+							<th class="text-center">Nombre del comercio</th>
+							<th class="text-center">Sector</th>
+							<th class="text-center">CP</th>
+							<th class="text-center">Banco</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="align-middle text-center">${comercio.merchantId}</td>
+							<td class="align-middle text-center">${comercio.nombreComercio}</td>
+							<td class="align-middle text-center">${comercio.sector}</td>
+							<td class="align-middle text-center">${comercio.cp}</td>
+							<td class="align-middle text-center">${comercio.banco}</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<c:choose>
+					<c:when test="${numVentas > 0}">
+						<p>Nº ventas: ${numVentas} || Suma importe: ${importeTotal}€ || Nº clientes distintos: ${numClientesDistintos} || Importe medio: ${importeMedio}€ </p>
+						<div class="col-md">
+					        <div id="col_chart_num_ventas_importe_por_hora"></div>
+					    </div>
+					    
+					    <div class="col-md-12">
+						    <div class="col-md-6">
+								<div id="pie_chart_num_ventas_por_sexo"></div>
+							</div>
+							<div class="col-md-6">
+								<div id="pie_chart_importe_por_sexo"></div>
+							</div>
+					    </div>
+					    
+						<div class="col-md-12">
+							<div id="col_chart_num_ventas_importe_por_edad"></div>
+						</div>
+						
+						<div class="col-md-12">
+							<div id="col_chart_num_ventas_importe_por_dia_semana"></div>
+						</div>
+						
+						<div class="col-md-12">
+							<div id="col_chart_num_ventas_importe_por_cp"></div>
+						</div>
+						
+						<div class="col-md-12">
+							<div id="col_chart_fidelidad_clientes"></div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<h5>No hay ventas para este comercio</h5>
+					</c:otherwise>
+				</c:choose>
+			</shiro:hasRole>
+			
+			<shiro:lacksRole name="comerciante">
+				<h1><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
+			</shiro:lacksRole>
+			
+			<shiro:guest>
+				<h1>No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
+			</shiro:guest>		
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
 	</body>
 </html>

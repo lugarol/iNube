@@ -61,28 +61,30 @@
 		</nav>
 	
 		<div class="container">
-			<shiro:user>
-				<shiro:lacksRole name="admin">
-					<h2>Consultar estadísticas individuales de tus comercios</h2>
-			    	<form action="SeleccionarComercioEstadIndivServlet" method="get">
-			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas individuales</button>
-			    	</form>
-			    	
-			    	<hr>
-			    	
-			    	<h2>Consultar estadísticas comparadas</h2>
-			    	<form action="" method="get">
-						<button type="button" class="btn btn-outline-primary mb-4 mt-2">En construcción</button>	
-			    	</form>
-			    	
-			    	<hr>
-			    	
-			    	<h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2>
-			    	<form action="GestionarComercianteServlet" method="get">
-			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Gestionar</button>
-			    	</form>
-				</shiro:lacksRole>
-			</shiro:user>
+			<shiro:hasRole name="comerciante">
+				<h2>Consultar estadísticas individuales de tus comercios</h2>
+		    	<form action="SeleccionarComercioEstadIndivServlet" method="get">
+		    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas individuales</button>
+		    	</form>
+		    	
+		    	<hr>
+		    	
+		    	<h2>Consultar estadísticas comparadas</h2>		    	
+		    	<form action="" method="get">
+					<button type="button" class="btn btn-outline-primary mb-4 mt-2">En construcción</button>	
+		    	</form>
+		    	
+		    	<hr>
+		    	
+		    	<h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2>
+		    	<form action="GestionarComercianteServlet" method="get">
+		    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Gestionar</button>
+		    	</form>
+			</shiro:hasRole>
+			
+			<shiro:lacksRole name="comerciante">
+				<h1><shiro:principal />, no eres comerciante. No tienes permisos para ver esta página.</h1>
+			</shiro:lacksRole>
 			
 			<shiro:guest>
 				<h1>No has iniciado sesión. Haz clic <a href="LogoutServlet">aquí</a> para iniciar sesión.</h1>
