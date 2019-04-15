@@ -94,6 +94,10 @@
 								</c:forEach>	
 							</tbody>						
 						</table>
+						
+						<c:if test="${empty misComercios}">
+							<h5 class="mb-3">No tienes comercios</h5>
+						</c:if>
 					</section>
 					
 					<hr>

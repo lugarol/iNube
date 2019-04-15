@@ -151,7 +151,7 @@
 		    	]);
 		    	
 		    	var options6 = {
-	    			'title': 'Núm. ventas e importe por CP',
+	    			'title': 'Núm. ventas e importe por CP (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -245,7 +245,7 @@
 		<div class="container">	
 			<shiro:user>
 				<shiro:hasRole name="comerciante">
-					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver a Estadísticas individuales</button>
+					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
 					
 					<h1 class="mb-3 mt-3">Vista de comercio</h1>
 				

@@ -58,7 +58,7 @@
 		<div class="container">
 			<shiro:user>
 				<shiro:hasRole name="comerciante">
-					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver a Gestión de cuenta</button>
+					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
 				
 					<h1 class="mb-3 mt-3">Vista de comerciante</h1>
 					

@@ -108,36 +108,7 @@
 					
 					<hr>
 					
-					<section class="col-md-12 ventas">
-						<h3 class="mb-3">Insertar venta</h3>
-						<form action="CreateVentaServlet" method="post">
-							<p>Día y hora: <input type="datetime-local" name="date"/></p>
-							<p>Importe: <input type="number" name="price" step=".01"/></p>
-							<p>
-								Comercio:
-								<select name="comercio">
-									<option value="" disabled selected>Elegir comercio</option>
-									<c:forEach items="${allComercios}" var="comercioi">
-										<option value="${comercioi.merchantId}">
-											Nombre: ${comercioi.nombreComercio} / sector: ${comercioi.sector} / CP: ${comercioi.cp} / comerciante: ${comercioi.comerciante.usuario}
-										</option>
-									</c:forEach>
-								</select> 
-							</p>
-							<p>
-								Comprador:
-								<select name="comprador">
-									<option value="" disabled selected>Elegir comprador</option>
-									<c:forEach items="${allClientes}" var="clientei">
-										<option value="${clientei.id}">
-											cp: ${clientei.cp} / sexo <c:if test="${clientei.sexo == 0}">H</c:if><c:if test="${clientei.sexo == 1}">M</c:if> / edad ${clientei.edad}
-										</option>
-									</c:forEach>
-								</select>
-							</p>
-							<p><button type="submit">Insertar venta</button></p>
-						</form>
-						
+					<section class="col-md-12 ventas">						
 						<h3 class="mb-3">Insertar venta</h3>
 						<form action="CreateVentaServlet" method="post">
 							<div class="row">

@@ -12,16 +12,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
-import es.upm.dit.isst.inube.dao.ClienteDAO;
-import es.upm.dit.isst.inube.dao.ClienteDAOImplementation;
-import es.upm.dit.isst.inube.dao.ComercianteDAO;
-import es.upm.dit.isst.inube.dao.ComercianteDAOImplementation;
-import es.upm.dit.isst.inube.dao.ComercioDAO;
-import es.upm.dit.isst.inube.dao.ComercioDAOImplementation;
-import es.upm.dit.isst.inube.dao.VentaDAO;
-import es.upm.dit.isst.inube.dao.VentaDAOImplementation;
-import es.upm.dit.isst.inube.model.Comerciante;
-
 @WebServlet({ "/LoginServlet", "/" })
 public class LoginServlet extends HttpServlet {
 	@Override

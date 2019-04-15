@@ -10,14 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
-import es.upm.dit.isst.inube.dao.ClienteDAO;
-import es.upm.dit.isst.inube.dao.ClienteDAOImplementation;
 import es.upm.dit.isst.inube.dao.ComercianteDAO;
 import es.upm.dit.isst.inube.dao.ComercianteDAOImplementation;
-import es.upm.dit.isst.inube.dao.ComercioDAO;
-import es.upm.dit.isst.inube.dao.ComercioDAOImplementation;
-import es.upm.dit.isst.inube.dao.VentaDAO;
-import es.upm.dit.isst.inube.dao.VentaDAOImplementation;
 import es.upm.dit.isst.inube.model.Comerciante;
 
 @WebServlet("/CreateComercianteServlet")
