@@ -37,9 +37,9 @@
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Estadísticas comparadas</a>
+							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link active luis" href="GestionarComercianteServlet">Gestiona tu cuenta</a>
 						</li>
 					</shiro:lacksRole>
@@ -115,8 +115,18 @@
 									<input class="form-control" type="text" name="nombreComercio" required />
 								</div>
 								<div class="col-md-4 mb-3">
-									<label for="sector">Sector</label>
-									<input class="form-control" type="text" name="sector" required />
+									<label for="sector">Sector</label>									
+									<select name="sector" class="custom-select w-100 d-block" required>
+										<option value="" disabled selected>Elegir sector</option>
+										<option value="Banca">Banca</option>
+										<option value="Carniceria">Carnicería</option>
+										<option value="Estetica">Estética</option>
+										<option value="Informatica">Informática</option>
+										<option value="Panaderia">Panadería</option>
+										<option value="Peluqueria">Peluquería</option>
+										<option value="Perfumeria">Perfumería</option>
+									</select>
+									
 								</div>
 								<div class="col-md-4 mb-3">
 									<label for="cp">Código postal</label>

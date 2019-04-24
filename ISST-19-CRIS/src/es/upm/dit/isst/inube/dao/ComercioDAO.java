@@ -12,5 +12,6 @@ public interface ComercioDAO {
 	public void delete(Comercio comercio);
 	public Collection<Comercio> readAll();
 	public Collection<Comercio> readAllFromComerciante(int comercianteId);
+	public Collection<Comercio> readAllButMe(String merchantId, String sector, int cp);
 
 }

@@ -38,9 +38,9 @@
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Estadísticas comparadas</a>
+							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link" href="GestionarComercianteServlet">Gestiona tu cuenta</a>
 						</li>
 					</shiro:lacksRole>
@@ -78,7 +78,17 @@
 								</div>
 								<div class="col-md-4 mb-3">
 									<label for="sector">Sector</label>
-									<input class="form-control" type="text" value="${comercio.sector}" name="sector" required />
+									<select name="sector" class="custom-select w-100 d-block" required>
+										<option value="" disabled selected>Elegir sector</option>
+										<option value="Banca">Banca</option>
+										<option value="Carniceria">Carnicería</option>
+										<option value="Estetica">Estética</option>
+										<option value="Informatica">Informática</option>
+										<option value="Panaderia">Panadería</option>
+										<option value="Peluqueria">Peluquería</option>
+										<option value="Perfumeria">Perfumería</option>
+									</select>
+									<!-- <input class="form-control" type="text" value="${comercio.sector}" name="sector" required /> -->
 								</div>
 								<div class="col-md-4 mb-3">
 									<label for="cp">Código postal</label>
@@ -103,9 +113,9 @@
 					<section class="col-md-12">
 						<!-- PTE HACER -->
 						<h4 class="mb-3">Eliminar comercio</h4>
-						<form action="" method="post">
+						<form action="DeleteComercioServlet" method="post">
 							<input type="hidden" name="merchantId" value="${comercio.merchantId}" />
-							<button class="btn btn-danger btn-lg" type="submit">Eliminar comercio (en construcción)</button>
+							<button class="btn btn-danger btn-lg" type="submit">Eliminar comercio</button>
 						</form>
 					</section>
 					

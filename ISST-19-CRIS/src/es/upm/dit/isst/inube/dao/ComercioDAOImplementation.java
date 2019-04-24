@@ -126,23 +126,25 @@ public class ComercioDAOImplementation implements ComercioDAO {
 		return comercios;
 	}
 	
-	/*@Override
-	public Collection<Comerciante> readAllFromUsuario(int id) {
+	@Override
+	public Collection<Comercio> readAllButMe(String merchantId, String sector, int cp) {
 		Session session = SessionFactoryService.get().openSession();
-		Collection<Comerciante> comerciantes = null;
+		Collection<Comercio> comercios = null;
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from Comerciante where id = :id");
-			query.setParameter("id", id);
-			comerciantes = query.list();
+			Query query = session.createQuery("from Comercio where merchantId != :merchantId and cp = :cp and sector = :sector");
+			query.setParameter("merchantId", merchantId);
+			query.setParameter("cp", cp);
+			query.setParameter("sector", sector);
+			comercios = query.list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			// manejar
 		} finally {
 			session.close();
 		}
-		return comerciantes;
-	}*/
+		return comercios;
+	}
 
 }
 

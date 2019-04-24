@@ -33,11 +33,11 @@
 						<li class="nav-item">
 							<a class="nav-link" href="MenuComercianteServlet">Menú</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Estadísticas comparadas</a>
+							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="GestionarComercianteServlet">Gestiona tu cuenta</a>

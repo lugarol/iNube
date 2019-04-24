@@ -10,6 +10,7 @@
 		<title>Admin View</title>
 		<link rel="stylesheet" type="text/css" href="css/admin_styles.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	</head>
 	
 	<body>
@@ -22,7 +23,7 @@
 			<ul class="navbar-nav mr-auto">
 				<shiro:user>
 					<shiro:hasRole name="admin">
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link" href="AdminServlet">Menú de admin</a>
 						</li>
 					</shiro:hasRole>
@@ -38,7 +39,7 @@
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Estadísticas comparadas</a>
+							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="GestionarComercianteServlet">Gestiona tu cuenta</a>
@@ -92,6 +93,7 @@
 									<th class="text-center">Id</th>
 									<th class="text-center">Usuario</th>
 									<th class="text-center">Nº comercios</th>
+									<th class="text-center">Borrar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -100,6 +102,12 @@
 										<td class="align-middle text-center">${comerciantei.id}</td>
 										<td class="align-middle text-center">${comerciantei.usuario}</td>
 										<td class="align-middle text-center">${fn:length(comerciantei.comercios)}</td>
+										<td class="align-middle text-center">
+											<form action="DeleteComercianteServlet" method="post">
+												<input type="hidden" name="comercianteId" value="${comerciantei.id}" />
+												<button class="btn btn-danger btn-sm btn-block" type="submit"><span class="fa fa-trash-alt"></span></button>
+											</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -157,19 +165,24 @@
 									<th class="text-center">Importe</th>
 									<th class="text-center">Nombre comercio</th>
 									<th class="text-center">Id persona</th>
+									<th class="text-center">Borrar</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${allVentas}" var="ventai">
 									<tr>
 										<td class="align-middle text-center">${ventai.id}</td>
-										<!-- <td>${ventai.fecha}</td> -->
-										<!-- <td><fmt:formatDate type="both" value="${ventai.fecha}" /></td> -->
 										<!-- https://www.tutorialspoint.com/jsp/jstl_format_formatdate_tag.htm -->
 										<td class="align-middle text-center"><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${ventai.fecha}" /></td>
 										<td class="align-middle text-center">${ventai.importe}</td>
 										<td class="align-middle text-center">${ventai.comercio.nombreComercio}</td>
 										<td class="align-middle text-center">${ventai.persona.id}</td>
+										<td class="align-middle text-center">
+											<form action="DeleteVentaServlet" method="post">
+												<input type="hidden" name="ventaId" value="${ventai.id}" />
+												<button class="btn btn-danger btn-sm btn-block" type="submit"><span class="fa fa-trash-alt"></span></button>
+											</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -219,6 +232,7 @@
 									<th class="text-center">CP</th>
 									<th class="text-center">Edad</th>
 									<th class="text-center">Sexo</th>
+									<th class="text-center">Borrar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -230,6 +244,12 @@
 										<td class="align-middle text-center">
 											<c:if test="${clientei.sexo == 0}">Hombre</c:if>
 											<c:if test="${clientei.sexo == 1}">Mujer</c:if>
+										</td>
+										<td class="align-middle text-center">
+											<form action="DeleteClienteServlet" method="post">
+												<input type="hidden" name="clienteId" value="${clientei.id}" />
+												<button class="btn btn-danger btn-sm btn-block" type="submit"><span class="fa fa-trash-alt"></span></button>
+											</form>
 										</td>
 									</tr>
 								</c:forEach>

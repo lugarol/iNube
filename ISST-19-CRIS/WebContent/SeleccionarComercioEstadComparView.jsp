@@ -6,8 +6,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Menú Comerciante View</title>
-		<link rel="stylesheet" type="text/css" href="css/menuComerciante_styles.css">
+		<title>Seleccionar Comercio Estadísticas Comparadas View</title>
+		<link rel="stylesheet" type="text/css" href="css/seleccionarComercioEstadIndiv_styles.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	</head>
 	
@@ -30,13 +30,13 @@
 						<li class="nav-item">
 							<a class="nav-link" href="LoginServlet">Home</a>
 						</li>
-						<li class="nav-item active">
+						<li class="nav-item">
 							<a class="nav-link" href="MenuComercianteServlet">Menú</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
 						<li class="nav-item">
@@ -59,31 +59,52 @@
 			</shiro:guest>
 			
 		</nav>
-	
+		
 		<div class="container">
 			<shiro:user>
-				<shiro:hasRole name="comerciante">
-					<h1 class="mb-3 mt-3">Menú del comerciante</h1>
+				<shiro:hasRole name="comerciante">			
+					<h1 class="mb-3 mt-3">Vista de comerciante</h1>
 					
-					<h2>Consultar estadísticas individuales de tus comercios</h2>
-			    	<form action="SeleccionarComercioEstadIndivServlet" method="get">
-			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas individuales</button>
-			    	</form>
-			    	
-			    	<hr>
-			    	
-			    	<h2>Consultar estadísticas comparadas</h2>		    	
-			    	<form action="SeleccionarComercioEstadComparServlet" method="get">
-						<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Estadísticas comparadas</button>	
-			    	</form>
-			    	
-			    	<hr>
-			    	
-			    	<h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2>
-			    	<!-- <h2>Gestionar tu cuenta (añadir, modificar o eliminar comercios)</h2> -->
-			    	<form action="GestionarComercianteServlet" method="get">
-			    		<button type="submit" class="btn btn-outline-primary mb-4 mt-2">Gestionar</button>
-			    	</form>
+					<section class="col-md-12">
+						<h3 class="mb-3">Mis comercios</h3>
+						<table class="table table-bordered table-sm table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th class="text-center">MerchantId</th>
+									<th class="text-center">Nombre del comercio</th>
+									<th class="text-center">Sector</th>
+									<th class="text-center">CP</th>
+									<th class="text-center">Banco</th>
+									<th class="text-center">Núm. ventas</th>
+									<th class="text-center">Ver estadísticas comparadas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${misComercios}" var="comercio">
+									<tr>
+										<td class="align-middle text-center">${comercio.merchantId}</td>
+										<td class="align-middle text-center">${comercio.nombreComercio}</td>
+										<td class="align-middle text-center">${comercio.sector}</td>
+										<td class="align-middle text-center">${comercio.cp}</td>
+										<td class="align-middle text-center">${comercio.banco}</td>
+										<td class="align-middle text-center">${fn:length(comercio.ventas)}</td>
+										<td class="align-middle text-center">
+											<form action="VerComercioEstadComparServlet" method="get">
+												<input type="hidden" name="merchantId" value="${comercio.merchantId}"/>
+												<button class="btn btn-outline-primary btn-sm btn-block" type="submit">
+													Ver comercio <span class="font-weight-bold">${comercio.nombreComercio}</span> 
+												</button>
+											</form>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						
+						<c:if test="${empty misComercios}">
+							<h5 class="mb-3">No tienes comercios</h5>
+						</c:if>
+					</section>
 				</shiro:hasRole>
 				
 				<shiro:lacksRole name="comerciante">

@@ -16,7 +16,7 @@ public class Venta implements Serializable {
 	private double importe;
 	
 	@ManyToOne
-	private Comercio comercio; // o llamarle merchantId?
+	private Comercio comercio;
 	
 	@ManyToOne
 	private Cliente persona;

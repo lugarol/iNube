@@ -24,6 +24,8 @@ import es.upm.dit.isst.inube.model.*;
 @WebServlet("/VerComercioEstadIndivServlet")
 public class VerComercioEstadIndivServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 1L;
+
 	public String getDiaSemanaStr(int diaSemana) {
 		if (diaSemana == 1) {
 			return "Domingo";
@@ -134,8 +136,8 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		Map<Integer, double[]> numVentasEImportePorHora = inicializarNumVentasEImportePorHora();
 		Map<String, double[]> numVentasEImportePorEdad = inicializarNumVentasEImportePorEdad();
 		Map<String, double[]> numVentasEImportePorDiaSemana = inicializarNumVentasEImportePorDiaSemana();
-		Map<Integer, double[]> numVentasEImportePorCp = new HashMap<Integer, double[]>(); // si no queda ordenado, probar un TreeMap o LinkedHashMap
-		Map<Integer, double[]> numVentasEImportePorCliente = new HashMap<Integer, double[]>(); // si no queda ordenado, probar un TreeMap o LinkedHashMap (clientesYSusVentas)
+		Map<Integer, double[]> numVentasEImportePorCp = new HashMap<Integer, double[]>();
+		Map<Integer, double[]> numVentasEImportePorCliente = new HashMap<Integer, double[]>();
 		
 		int numVentasHombres = 0;
 		int numVentasMujeres = 0;
@@ -162,7 +164,7 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 				// num ventas e importe por hora
 				int hora = calendar.get(Calendar.HOUR_OF_DAY);
 				double[] arrayNumVentasEImportePorHora = numVentasEImportePorHora.get(hora);
-				arrayNumVentasEImportePorHora[0] += + 1;
+				arrayNumVentasEImportePorHora[0] += 1;
 				arrayNumVentasEImportePorHora[1] += v.getImporte();
 				numVentasEImportePorHora.put(hora, arrayNumVentasEImportePorHora);
 				
@@ -178,7 +180,7 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 				// num ventas e importe por edad
 				String rangoEdadCliente = getRangoEdad(v.getPersona().getEdad());
 				double[] arrayNumVentasEImportePorEdad = numVentasEImportePorEdad.get(rangoEdadCliente);
-				arrayNumVentasEImportePorEdad[0] += + 1;
+				arrayNumVentasEImportePorEdad[0] += 1;
 				arrayNumVentasEImportePorEdad[1] += v.getImporte();
 				numVentasEImportePorEdad.put(rangoEdadCliente, arrayNumVentasEImportePorEdad);
 				

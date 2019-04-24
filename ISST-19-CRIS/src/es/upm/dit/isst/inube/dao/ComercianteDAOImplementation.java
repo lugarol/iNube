@@ -68,14 +68,6 @@ public class ComercianteDAOImplementation implements ComercianteDAO {
 		} finally {
 			session.close();
 		}
-		/* revisar quitar
-		if (comerciantes == null) {
-			System.out.println(" --- readFromUsuario - COMERCIANTES ES NULL");
-		} else {
-			System.out.println(" --- readFromUsuario - comerciantes.size(): " + comerciantes.size());
-			System.out.println(" --- readFromUsuario - comerciantes.next(): " + comerciantes.iterator().next().toString());
-		}
-		*/
 		return comerciantes.iterator().next();
 	}
 

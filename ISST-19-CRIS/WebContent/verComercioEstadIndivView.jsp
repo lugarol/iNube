@@ -21,20 +21,20 @@
 		    google.setOnLoadCallback(drawChart1_numVentasEImportePorHora);
 		    google.setOnLoadCallback(drawChart2_numVentasPorSexo);
 		    google.setOnLoadCallback(drawChart3_importeVentasPorSexo);
-		    google.setOnLoadCallback(drawChart4_numVentasEImportePorEdad);
-		    google.setOnLoadCallback(drawChart5_numVentasEImportePorDiaSemana);
-		    google.setOnLoadCallback(drawChart6_numVentasEImportePorCP);
-		    google.setOnLoadCallback(drawChart7_fidelidadClientes);
+		    google.setOnLoadCallback(drawchart4_numVentasEImportePorEdad);
+		    google.setOnLoadCallback(drawchart5_numVentasEImportePorDiaSemana);
+		    google.setOnLoadCallback(drawchart6_numVentasEImportePorCP);
+		    google.setOnLoadCallback(drawchart7_fidelidadClientes);
 		    
 		    function drawChart1_numVentasEImportePorHora() {
-		    	var data1 = google.visualization.arrayToDataTable([
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Hora', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorHora}" var="horai">
 			    		['${horai.key}h', ${horai.value[0]}, ${horai.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options1 = {
+		    	let options = {
 	    			'title': 'Núm. ventas e importe por hora',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
@@ -45,60 +45,63 @@
 	    				1: {title: 'Importe ventas'}
 	    			},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545']
 		    	};
 		    	
-		    	var chart1 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_hora'));
-		    	chart1.draw(data1, options1);
+		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_hora'));
+		    	chart.draw(data, options);
 		    }
 		    
 		    function drawChart2_numVentasPorSexo() {
-		    	var data2 = google.visualization.arrayToDataTable([
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Sexo', 'Núm. ventas'],
 		    		['Hombres', ${numVentasHombres}],
 		    		['Mujeres', ${numVentasMujeres}]
 		    	]);
 		    	
-		    	var options2 = {
+		    	let options = {
 		    		'title': 'Núm. ventas por sexo',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
-		    	var chart2 = new google.visualization.PieChart(document.getElementById('pie_chart_num_ventas_por_sexo'));
-		    	chart2.draw(data2, options2);
+		    	let chart = new google.visualization.PieChart(document.getElementById('pie_chart_num_ventas_por_sexo'));
+		    	chart.draw(data, options);
 		    }
 		    
 		    function drawChart3_importeVentasPorSexo() {
-		    	var data3 = google.visualization.arrayToDataTable([
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Sexo', 'Importe'],
 		    		['Hombres', ${importeHombres}],
 		    		['Mujeres', ${importeMujeres}]
 		    	]);
 		    	
-		    	var options3 = {
+		    	let options = {
 		    		'title': 'Importe por sexo',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
-		    	var chart3 = new google.visualization.PieChart(document.getElementById('pie_chart_importe_por_sexo'));
-		    	chart3.draw(data3, options3);
+		    	let chart = new google.visualization.PieChart(document.getElementById('pie_chart_importe_por_sexo'));
+		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart4_numVentasEImportePorEdad() {
-		    	var data4 = google.visualization.arrayToDataTable([
+		    function drawchart4_numVentasEImportePorEdad() {
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Edad', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorEdad}" var="edadi">
 			    		['${edadi.key}', ${edadi.value[0]}, ${edadi.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options4 = {
+		    	let options = {
 	    			'title': 'Núm. ventas e importe por edad',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
@@ -109,22 +112,23 @@
 	    				1: {title: 'Importe ventas'}
 	    			},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545']
 		    	};
 		    	
-		    	var chart4 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_edad'));
-		    	chart4.draw(data4, options4);
+		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_edad'));
+		    	chart.draw(data, options);
 		    }  
 		    
-		    function drawChart5_numVentasEImportePorDiaSemana() {
-		    	var data5 = google.visualization.arrayToDataTable([
+		    function drawchart5_numVentasEImportePorDiaSemana() {
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Día de la semana', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorDiaSemana}" var="diai">
 			    		['${diai.key}', ${diai.value[0]}, ${diai.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options5 = {
+		    	let options = {
 	    			'title': 'Núm. ventas e importe por día de la semana',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
@@ -135,22 +139,23 @@
 	    				1: {title: 'Importe ventas'}
 	    			},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545']
 		    	};
 		    	
-		    	var chart5 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_dia_semana'));
-		    	chart5.draw(data5, options5);
+		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_dia_semana'));
+		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart6_numVentasEImportePorCP() {
-		    	var data6 = google.visualization.arrayToDataTable([
+		    function drawchart6_numVentasEImportePorCP() {
+		    	let data = google.visualization.arrayToDataTable([
 		    		['CP', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorCp}" var="cpi">
 			    		['${cpi.key}', ${cpi.value[0]}, ${cpi.value[1]}],
 			    	</c:forEach>
 		    	]);
 		    	
-		    	var options6 = {
+		    	let options = {
 	    			'title': 'Núm. ventas e importe por CP (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
@@ -161,33 +166,35 @@
 	    				1: {title: 'Importe ventas'}
 	    			},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545']
 		    	};
 		    	
-		    	var chart6 = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_cp'));
-		    	chart6.draw(data6, options6);
+		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_chart_num_ventas_importe_por_cp'));
+		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart7_fidelidadClientes() {
-		    	var data7 = google.visualization.arrayToDataTable([
+		    function drawchart7_fidelidadClientes() {
+		    	let data = google.visualization.arrayToDataTable([
 		    		['Veces', '%'],
 		    		['1 vez', ${porcClientesUnaVez}],
 		    		['2 veces', ${porcClientesDosVeces}],
 		    		['3+ veces', ${porcClientesTresOMasVeces}]
 		    	]);
 		    	
-		    	var options7 = {
+		    	let options = {
 	    			'title': 'Fidelidad clientes (veces que han venido)',
 	    			bar: {groupWidth: '90%'},
 	    			vAxis: {
 	    				format: '#\'%\''
 	    			},
 	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16
+	    			fontSize: 16,
+	    			colors: ['#007bff', '#dc3545']
 		    	};
 		    	
-		    	var chart7 = new google.visualization.ColumnChart(document.getElementById('col_chart_fidelidad_clientes'));
-		    	chart7.draw(data7, options7);
+		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_chart_fidelidad_clientes'));
+		    	chart.draw(data, options);
 		    }
 		    
 		</script>
@@ -215,11 +222,11 @@
 						<li class="nav-item">
 							<a class="nav-link" href="MenuComercianteServlet">Menú</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 							<a class="nav-link" href="SeleccionarComercioEstadIndivServlet">Estadísticas individuales</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Estadísticas comparadas</a>
+							<a class="nav-link" href="SeleccionarComercioEstadComparServlet">Estadísticas comparadas</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="GestionarComercianteServlet">Gestiona tu cuenta</a>

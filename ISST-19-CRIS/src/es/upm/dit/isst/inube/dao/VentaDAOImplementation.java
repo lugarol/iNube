@@ -1,7 +1,10 @@
 package es.upm.dit.isst.inube.dao;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -96,14 +99,13 @@ public class VentaDAOImplementation implements VentaDAO {
 	}
 	
 	@Override
-	public Collection<Venta> readAllFromClienteForComercio(int clienteId, String merchantId) {
+	public Collection<Venta> readAllFromCliente(int clienteId) {
 		Session session = SessionFactoryService.get().openSession();
 		Collection<Venta> ventas = null;
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from Venta where persona.id = :id and comercio.merchantId = :merchantId");
-			query.setParameter("id", clienteId);
-			query.setParameter("merchantId", merchantId);
+			Query query = session.createQuery("from Venta where persona.id = :clienteId");
+			query.setParameter("clienteId", clienteId);
 			ventas = query.list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -111,10 +113,24 @@ public class VentaDAOImplementation implements VentaDAO {
 		} finally {
 			session.close();
 		}
-		if (ventas == null) {
-			System.out.println(" --- VentaDAOImplementation - ventas es null");
-		} else {
-			System.out.println(" --- VentaDAOImplementation - ventas.size(): " + ventas.size());
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllFromClienteForComercio(int clienteId, String merchantId) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta where persona.id = :clienteId and comercio.merchantId = :merchantId");
+			query.setParameter("clienteId", clienteId);
+			query.setParameter("merchantId", merchantId);
+			ventas = query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
 		}
 		return ventas;
 	}
@@ -134,10 +150,65 @@ public class VentaDAOImplementation implements VentaDAO {
 		} finally {
 			session.close();
 		}
-		if (ventas == null) {
-			System.out.println(" --- VentaDAOImplementation - ventas es null");
-		} else {
-			System.out.println(" --- VentaDAOImplementation - ventas.size(): " + ventas.size());
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllExceptForComercio(String merchantId) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta where comercio_merchantId != :merchantId");
+			query.setParameter("merchantId", merchantId);
+			ventas = query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+			System.out.println(" --- VentaDAOImplementation - ¡Error!");
+		} finally {
+			session.close();
+		}		
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllButMine(String merchantId, String sector, int cp) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			//Query query = session.createQuery("from Venta where comercio_merchantId != :merchantId and cp");
+			Query query = session.createQuery("from Venta as venta WHERE comercio.merchantId != :merchantId and comercio.cp = :cp and comercio.sector = :sector");
+			query.setParameter("merchantId", merchantId);
+			query.setParameter("cp", cp);
+			query.setParameter("sector", sector);
+			ventas = query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
+		}
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllBetweenDates(Date from, Date to) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta where fecha >= :from and fecha <= :to");
+			query.setParameter("from", from);
+			query.setParameter("to", to);
+			ventas = query.list();
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
 		}
 		return ventas;
 	}

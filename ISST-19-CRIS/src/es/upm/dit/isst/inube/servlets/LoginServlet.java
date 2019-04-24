@@ -21,18 +21,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(" LoginServlet > doGet ");
 		System.out.println(" ------------------------------------ ");
 		
-		/*
-		ClienteDAO clienteDao = ClienteDAOImplementation.getInstance();
-		ComercianteDAO comercianteDao = ComercianteDAOImplementation.getInstance();
-		ComercioDAO comercioDao = ComercioDAOImplementation.getInstance();
-		VentaDAO ventaDao = VentaDAOImplementation.getInstance();
-		
-		req.getSession().setAttribute("cliente_list", clienteDao.readAll());
-		req.getSession().setAttribute("comerciante_list", comercianteDao.readAll());
-		req.getSession().setAttribute("comercio_list", comercioDao.readAll());
-		req.getSession().setAttribute("venta_list", ventaDao.readAll());
-		*/
-		
 		// redirigir a LoginView.jsp
 		getServletContext().getRequestDispatcher("/LoginView.jsp").forward(req, resp);
 
@@ -59,11 +47,6 @@ public class LoginServlet extends HttpServlet {
 				if (currentUser.hasRole("admin")) {												// si el usuario es admin, redirigir a AdminServlet
 					resp.sendRedirect(req.getContextPath() + "/AdminServlet");
 				} else if (currentUser.hasRole("comerciante")) {								// si el usuario es comerciante, redirigir a MenuComercianteServlet
-					// pasar parámetros token y usuario
-					/* revisar quitar
-					req.getSession().setAttribute("token", token);
-					req.getSession().setAttribute("usuario", usuario);
-					*/
 					resp.sendRedirect(req.getContextPath() + "/MenuComercianteServlet");
 				} else {																		// redirigir a LoginServlet
 					resp.sendRedirect(req.getContextPath() + "/LoginServlet");
