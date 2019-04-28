@@ -20,8 +20,6 @@
 		    // Set a callback to run when the Google Visualization API is loaded.		    
 		    google.setOnLoadCallback(drawChart1_numVentasPorHoraMioYResto);
 		    google.setOnLoadCallback(drawChart2_importePorHoraMioYResto);
-		    //google.setOnLoadCallback(drawChart3_numVentasPorSexoMioYResto);
-		    //google.setOnLoadCallback(drawChart4_importePorSexoMioYResto);
 		    google.setOnLoadCallback(drawChart5_numVentasPorEdadMioYResto);
 		    google.setOnLoadCallback(drawChart6_importePorEdadMioYResto);
 		    google.setOnLoadCallback(drawChart7_numVentasPorDiaSemanaMioYResto);
@@ -30,10 +28,10 @@
 		    google.setOnLoadCallback(drawChart10_importePorCpMioYResto);
 		    google.setOnLoadCallback(drawChart11_fidelidadClientesMioYResto);
 		    
-		    google.setOnLoadCallback(drawChart12_PieChartNumVentasMiasPorSexo);
-		    google.setOnLoadCallback(drawChart13_PieChartNumVentasRestoPorSexo);
-		    google.setOnLoadCallback(drawChart14_PieChartImporteMioPorSexo);
-		    google.setOnLoadCallback(drawChart15_PieChartImporteRestoPorSexo);
+		    google.setOnLoadCallback(drawChart12_PieChartNumVentasHombres);
+		    google.setOnLoadCallback(drawChart13_PieChartNumVentasMujeres);
+		    google.setOnLoadCallback(drawChart14_PieChartImporteHombres);
+		    google.setOnLoadCallback(drawChart15_PieChartImporteMujeres);
 		    
 		    function drawChart1_numVentasPorHoraMioYResto() {
 		    	let data = google.visualization.arrayToDataTable([
@@ -44,7 +42,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por hora mías y resto (por día)',
+	    			'title': 'Núm. ventas individuales y ventas totales por hora al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -77,7 +75,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por hora mío y resto (por día)',
+	    			'title': 'Importe ventas individuales y ventas totales por hora al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -101,56 +99,6 @@
 		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart3_numVentasPorSexoMioYResto() {
-		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Hombres', 'Mujeres'],
-		    		['Núm. ventas mías', ${numMisVentasHombres}, ${numMisVentasMujeres}],
-		    		['Núm. ventas resto', ${porcRestoVentasHombres}, ${porcRestoVentasMujeres}]
-		    	]);
-		    	
-		    	let options = {
-		    		'title': 'Núm. ventas por sexo mías y resto',
-		    		isStacked: 'percent',
-		    		vAxis: {
-		    			minValue: 0,
-		    			ticks: [0, 0.25, 0.5, 0.75, 1]
-		    		},
-		    		legend: {
-		    			position: 'top'
-		    		},
-	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16,
-	    			colors: ['#007bff', '#28a745']
-		    	};
-		    	
-		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_stacked_chart_num_ventas_por_sexo_mio_y_resto'));
-		    	chart.draw(data, options);
-		    }
-		    
-		    function drawChart4_importePorSexoMioYResto() {
-		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Hombres', 'Mujeres'],
-		    		['Importe mío', ${miImporteHombres}, ${miImporteMujeres}],
-		    		['Importe resto', ${porcRestoImporteHombres}, ${porcRestoImporteMujeres}]
-		    	]);
-		    	
-		    	let options = {
-		    		'title': 'Importe por sexo mío y resto',
-		    		isStacked: 'percent',
-		    		vAxis: {
-		    			minValue: 0,
-		    			ticks: [0, 0.25, 0.5, 0.75, 1]
-		    		},
-		    		legend: {position: 'top'},
-	    			fontName: 'Segoe UI Light',
-	    			fontSize: 16,
-	    			colors: ['#007bff', '#28a745']
-		    	};
-		    	
-		    	let chart = new google.visualization.ColumnChart(document.getElementById('col_stacked_chart_importe_por_sexo_mio_y_resto'));
-		    	chart.draw(data, options);
-		    }
-		    
 		    function drawChart5_numVentasPorEdadMioYResto() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Edad', 'Núm. mis ventas', 'Núm. resto ventas'],
@@ -160,7 +108,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por edad mías y resto (por día)',
+	    			'title': 'Núm. ventas individuales y ventas totales por edad al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -193,7 +141,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por edad mío y resto (por día)',
+	    			'title': 'Importe ventas individuales y ventas totales por edad al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -226,7 +174,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por día de la semana mías y resto (por día)',
+	    			'title': 'Núm. ventas individuales y ventas totales por día de la semana al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -259,7 +207,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por día de la semana mío y resto (por día)',
+	    			'title': 'Importe ventas individuales y ventas totales por día de la semana al día',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -292,7 +240,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por CP mías y resto (por día) (tu CP es ${comercio.cp})',
+	    			'title': 'Núm. ventas individuales y ventas totales por CP al día (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -325,7 +273,7 @@
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por CP mío y resto (por día) (tu CP es ${comercio.cp})',
+	    			'title': 'Importe ventas individuales y ventas totales por CP al día (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -373,25 +321,19 @@
 		    	chart.draw(data, options);
 		    }
 		 	
-		 	function drawChart12_PieChartNumVentasMiasPorSexo() {
+		 	function drawChart12_PieChartNumVentasHombres() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Comercio', 'Núm. ventas por hombres'],
+		    		['Comercio', 'Núm. ventas por hombres (total)'],
 		    		['Mi comercio', ${numMisVentasHombres}],
 		    		['Resto', ${numRestoVentasHombres}]
 		    	]);
 		    	
 		    	let options = {
 		    		'title': 'Núm. ventas hombres',
-		    		pieSliceText: 'label',
+		    		pieSliceText: 'none',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
 	    			fontSize: 16,
-	    			legend: {
-		    			position: 'top',
-		    			textStyle: {
-		    				fontSize: 12
-		    			}
-		    		},
 	    			colors: ['#007bff', '#28a745'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
@@ -399,7 +341,7 @@
 		    	chart.draw(data, options);
 		    }
 		 	
-		 	function drawChart13_PieChartNumVentasRestoPorSexo() {
+		 	function drawChart13_PieChartNumVentasMujeres() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Comercio', 'Núm. ventas por mujeres'],
 		    		['Mi comercio', ${numMisVentasMujeres}],
@@ -408,16 +350,10 @@
 		    	
 		    	let options = {
 		    		'title': 'Núm. ventas mujeres',
-		    		pieSliceText: 'label',
+		    		pieSliceText: 'none',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
 	    			fontSize: 16,
-	    			legend: {
-		    			position: 'top',
-		    			textStyle: {
-		    				fontSize: 12
-		    			}
-		    		},
 	    			colors: ['#007bff', '#28a745'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
@@ -425,7 +361,7 @@
 		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart14_PieChartImporteMioPorSexo() {
+		    function drawChart14_PieChartImporteHombres() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Comercio', 'Importe ventas por hombres'],
 		    		['Mi comercio', ${miImporteHombres}],
@@ -434,16 +370,10 @@
 		    	
 		    	let options = {
 		    		'title': 'Importe hombres',
-		    		pieSliceText: 'label',
+		    		pieSliceText: 'none',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
 	    			fontSize: 16,
-	    			legend: {
-		    			position: 'top',
-		    			textStyle: {
-		    				fontSize: 12
-		    			}
-		    		},
 	    			colors: ['#007bff', '#28a745'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
@@ -451,7 +381,7 @@
 		    	chart.draw(data, options);
 		    }
 		    
-		    function drawChart15_PieChartImporteRestoPorSexo() {
+		    function drawChart15_PieChartImporteMujeres() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Comercio', 'Importe ventas por mujeres'],
 		    		['Mi comercio', ${miImporteMujeres}],
@@ -460,16 +390,10 @@
 		    	
 		    	let options = {
 		    		'title': 'Importe mujeres',
-		    		pieSliceText: 'label',
+		    		pieSliceText: 'none',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
 	    			fontSize: 16,
-	    			legend: {
-		    			position: 'top',
-		    			textStyle: {
-		    				fontSize: 12
-		    			}
-		    		},
 	    			colors: ['#007bff', '#28a745'] // azul: #007bff, rojo: #dc3545
 		    	};
 		    	
