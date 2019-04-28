@@ -20,8 +20,8 @@
 		    // Set a callback to run when the Google Visualization API is loaded.		    
 		    google.setOnLoadCallback(drawChart1_numVentasPorHoraMioYResto);
 		    google.setOnLoadCallback(drawChart2_importePorHoraMioYResto);
-		    google.setOnLoadCallback(drawChart3_numVentasPorSexoMioYResto);
-		    google.setOnLoadCallback(drawChart4_importePorSexoMioYResto);
+		    //google.setOnLoadCallback(drawChart3_numVentasPorSexoMioYResto);
+		    //google.setOnLoadCallback(drawChart4_importePorSexoMioYResto);
 		    google.setOnLoadCallback(drawChart5_numVentasPorEdadMioYResto);
 		    google.setOnLoadCallback(drawChart6_importePorEdadMioYResto);
 		    google.setOnLoadCallback(drawChart7_numVentasPorDiaSemanaMioYResto);
@@ -39,12 +39,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Hora', 'Núm. mis ventas', 'Núm. resto ventas'],
 		    		<c:forEach items="${numVentasPorHoraMioYResto}" var="horai">
-			    		['${horai.key}h', ${horai.value[0]}, ${horai.value[1]}],
+			    		['${horai.key}h', ${horai.value[0]}/${numDiasDiferencia}, ${horai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por hora mías y resto',
+	    			'title': 'Núm. ventas por hora mías y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -56,7 +56,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxNumVentasPorHoraMioYResto}
+	    					max: ${maxNumVentasPorHoraMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -72,12 +72,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Hora', 'Importe mis ventas', 'Importe resto ventas'],
 		    		<c:forEach items="${importePorHoraMioYResto}" var="horai">
-			    		['${horai.key}h', ${horai.value[0]}, ${horai.value[1]}],
+			    		['${horai.key}h', ${horai.value[0]}/${numDiasDiferencia}, ${horai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por hora mío y resto',
+	    			'title': 'Importe por hora mío y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -89,7 +89,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxImporteVentasPorHoraMioYResto}
+	    					max: ${maxImporteVentasPorHoraMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -155,12 +155,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Edad', 'Núm. mis ventas', 'Núm. resto ventas'],
 		    		<c:forEach items="${numVentasPorEdadMioYResto}" var="edadi">
-			    		['${edadi.key}', ${edadi.value[0]}, ${edadi.value[1]}],
+			    		['${edadi.key}', ${edadi.value[0]}/${numDiasDiferencia}, ${edadi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por edad mías y resto',
+	    			'title': 'Núm. ventas por edad mías y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -172,7 +172,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxNumVentasPorEdadMioYResto}
+	    					max: ${maxNumVentasPorEdadMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -188,12 +188,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Edad', 'Importe mis ventas', 'Importe resto ventas'],
 		    		<c:forEach items="${importePorEdadMioYResto}" var="edadi">
-			    		['${edadi.key}', ${edadi.value[0]}, ${edadi.value[1]}],
+			    		['${edadi.key}', ${edadi.value[0]}/${numDiasDiferencia}, ${edadi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por edad mío y resto',
+	    			'title': 'Importe por edad mío y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -205,7 +205,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxImportePorEdadMioYResto}
+	    					max: ${maxImportePorEdadMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -221,12 +221,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Día de la semana', 'Núm. mis ventas', 'Núm. resto ventas'],
 		    		<c:forEach items="${numVentasPorDiaSemanaMioYResto}" var="diai">
-			    		['${diai.key}', ${diai.value[0]}, ${diai.value[1]}],
+			    		['${diai.key}', ${diai.value[0]}/${numDiasDiferencia}, ${diai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por día de la semana mías y resto',
+	    			'title': 'Núm. ventas por día de la semana mías y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -238,7 +238,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxNumVentasPorDiaSemanaMioYResto}
+	    					max: ${maxNumVentasPorDiaSemanaMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -254,12 +254,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Día de la semana', 'Importe mis ventas', 'Importe resto ventas'],
 		    		<c:forEach items="${importePorDiaSemanaMioYResto}" var="diai">
-			    		['${diai.key}', ${diai.value[0]}, ${diai.value[1]}],
+			    		['${diai.key}', ${diai.value[0]}/${numDiasDiferencia}, ${diai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por día de la semana mío y resto',
+	    			'title': 'Importe por día de la semana mío y resto (por día)',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -271,7 +271,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxImportePorDiaSemanaMioYResto}
+	    					max: ${maxImportePorDiaSemanaMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -287,12 +287,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['CP', 'Núm. mis ventas', 'Núm. resto ventas'],
 		    		<c:forEach items="${numVentasPorCpMioYResto}" var="cpi">
-			    		['${cpi.key}', ${cpi.value[0]}, ${cpi.value[1]}],
+			    		['${cpi.key}', ${cpi.value[0]}/${numDiasDiferencia}, ${cpi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Núm. ventas por CP mías y resto (tu CP es ${comercio.cp})',
+	    			'title': 'Núm. ventas por CP mías y resto (por día) (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -304,7 +304,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxNumVentasPorCpMioYResto}
+	    					max: ${maxNumVentasPorCpMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -320,12 +320,12 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['CP', 'Importe mis ventas', 'Importe resto ventas'],
 		    		<c:forEach items="${importePorCpMioYResto}" var="cpi">
-			    		['${cpi.key}', ${cpi.value[0]}, ${cpi.value[1]}],
+			    		['${cpi.key}', ${cpi.value[0]}/${numDiasDiferencia}, ${cpi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
 		    	let options = {
-	    			'title': 'Importe por CP mío y resto (tu CP es ${comercio.cp})',
+	    			'title': 'Importe por CP mío y resto (por día) (tu CP es ${comercio.cp})',
 	    			series: {
 	    				0: {targetAxisIndex: 0},
 	    				1: {targetAxisIndex: 1}
@@ -337,7 +337,7 @@
 	    			vAxis: {
 	    				viewWindow: {
 	    					min: 0,
-	    					max: ${maxImportePorCpMioYResto}
+	    					max: ${maxImportePorCpMioYResto}/${numDiasDiferencia}
 	    				}
 	    			},
 	    			fontName: 'Segoe UI Light',
@@ -375,13 +375,13 @@
 		 	
 		 	function drawChart12_PieChartNumVentasMiasPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Comercio', 'Ventas por hombres'],
-		    		['Mi comercio', ${numMisVentasMujeres}],
-		    		['Resto', ${numRestoVentasMujeres}]
+		    		['Comercio', 'Núm. ventas por hombres'],
+		    		['Mi comercio', ${numMisVentasHombres}],
+		    		['Resto', ${numRestoVentasHombres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Núm. ventas mujeres',
+		    		'title': 'Núm. ventas hombres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -401,13 +401,13 @@
 		 	
 		 	function drawChart13_PieChartNumVentasRestoPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Comercio', 'Num ventas por hombres'],
-		    		['Mi comercio', ${numMisVentasHombres}],
-		    		['Resto', ${numRestoVentasHombres}]
+		    		['Comercio', 'Núm. ventas por mujeres'],
+		    		['Mi comercio', ${numMisVentasMujeres}],
+		    		['Resto', ${numRestoVentasMujeres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Num. ventas hombres',
+		    		'title': 'Núm. ventas mujeres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -427,13 +427,13 @@
 		    
 		    function drawChart14_PieChartImporteMioPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Comercio', 'Importe ventas por mujeres'],
-		    		['Mi comercio', ${miImporteMujeres}],
-		    		['Resto', ${restoImporteMujeres}]
+		    		['Comercio', 'Importe ventas por hombres'],
+		    		['Mi comercio', ${miImporteHombres}],
+		    		['Resto', ${restoImporteHombres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Importe mujeres',
+		    		'title': 'Importe hombres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -453,13 +453,13 @@
 		    
 		    function drawChart15_PieChartImporteRestoPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Comercio', 'Importe ventas por hombres'],
-		    		['Mi comercio', ${miImporteHombres}],
-		    		['Resto', ${restoImporteHombres}]
+		    		['Comercio', 'Importe ventas por mujeres'],
+		    		['Mi comercio', ${miImporteMujeres}],
+		    		['Resto', ${restoImporteMujeres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Importe hombres',
+		    		'title': 'Importe mujeres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -532,7 +532,9 @@
 		<div class="container">	
 			<shiro:user>
 				<shiro:hasRole name="comerciante">
-					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
+					<form action="SeleccionarComercioEstadComparServlet" method="get">
+						<button type="submit" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
+					</form>
 					
 					<h1 class="mb-3 mt-3">Vista de comercio</h1>
 				
@@ -596,6 +598,35 @@
 								</table>
 								<div class="col-md-5"></div>
 							</div>
+							
+							<form action="VerComercioEstadComparServlet" method="get">
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<label for="fechaInicial">Fecha inicio</label>
+										<input class="form-control" type="datetime-local" name="fechaInicial" value="${fechaInicialStr}" required />
+									</div>
+									<div class="col-md-4 mb-3">
+										<label for="fechaFinal">Fecha final</label>
+										<input class="form-control" type="datetime-local" name="fechaFinal" value="${fechaFinalStr}" required />
+									</div>
+									<div class="col-md-4 mb-3">
+										<label>&nbsp;</label>
+										<input type="hidden" name="merchantId" value="${comercio.merchantId}" />
+										<button type="submit" class="btn btn-info btn-block">Restringir fechas</button>
+									</div>
+									<!-- 
+									<div class="col-md-3 mb-3">
+										<label>&nbsp;</label>
+										<div>
+											${numDiasDiferencia}
+											<c:if test="${numDiasDiferencia != 1}">días</c:if>
+											<c:if test="${numDiasDiferencia == 1}">día</c:if>
+											[${numDiasDiferencia2}]
+										</div>
+									</div>
+									 -->
+								</div>
+							</form>
 							
 							<div class="col-md-12">
 						        <div class="py-3" id="col_chart_num_ventas_por_hora_mio_y_resto"></div>

@@ -30,7 +30,7 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Hora', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorHora}" var="horai">
-			    		['${horai.key}h', ${horai.value[0]}, ${horai.value[1]}],
+			    		['${horai.key}h', ${horai.value[0]}/${numDiasDiferencia}, ${horai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
@@ -56,8 +56,8 @@
 		    function drawChart2_numVentasPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Sexo', 'Núm. ventas'],
-		    		['Hombres', ${numVentasHombres}],
-		    		['Mujeres', ${numVentasMujeres}]
+		    		['Hombres', ${numVentasHombres}/${numDiasDiferencia}],
+		    		['Mujeres', ${numVentasMujeres}/${numDiasDiferencia}]
 		    	]);
 		    	
 		    	let options = {
@@ -76,8 +76,8 @@
 		    function drawChart3_importeVentasPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Sexo', 'Importe'],
-		    		['Hombres', ${importeHombres}],
-		    		['Mujeres', ${importeMujeres}]
+		    		['Hombres', ${importeHombres}/${numDiasDiferencia}],
+		    		['Mujeres', ${importeMujeres}/${numDiasDiferencia}]
 		    	]);
 		    	
 		    	let options = {
@@ -97,7 +97,7 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Edad', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorEdad}" var="edadi">
-			    		['${edadi.key}', ${edadi.value[0]}, ${edadi.value[1]}],
+			    		['${edadi.key}', ${edadi.value[0]}/${numDiasDiferencia}, ${edadi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
@@ -124,7 +124,7 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['Día de la semana', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorDiaSemana}" var="diai">
-			    		['${diai.key}', ${diai.value[0]}, ${diai.value[1]}],
+			    		['${diai.key}', ${diai.value[0]}/${numDiasDiferencia}, ${diai.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
@@ -151,7 +151,7 @@
 		    	let data = google.visualization.arrayToDataTable([
 		    		['CP', 'Núm. ventas', 'Importe ventas'],
 		    		<c:forEach items="${numVentasEImportePorCp}" var="cpi">
-			    		['${cpi.key}', ${cpi.value[0]}, ${cpi.value[1]}],
+			    		['${cpi.key}', ${cpi.value[0]}/${numDiasDiferencia}, ${cpi.value[1]}/${numDiasDiferencia}],
 			    	</c:forEach>
 		    	]);
 		    	
@@ -252,11 +252,13 @@
 		<div class="container">	
 			<shiro:user>
 				<shiro:hasRole name="comerciante">
-					<button onclick="history.back(-1)" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
+					<form action="SeleccionarComercioEstadIndivServlet" method="get">
+						<button type="submit" class="mt-3 btn btn-outline-primary"><span class="fa fa-arrow-left"></span> Volver</button>
+					</form>
 					
 					<h1 class="mb-3 mt-3">Vista de comercio</h1>
 				
-					<h3>Comercio</h3>
+					<h3>Mi comercio</h3>
 					<table class="table table-bordered table-sm">
 						<thead class="thead-light">
 							<tr>
@@ -298,6 +300,35 @@
 									</tr>
 								</tbody>
 							</table>
+							
+							<form action="VerComercioEstadIndivServlet" method="get">
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<label for="fechaInicial">Fecha inicio</label>
+										<input class="form-control" type="datetime-local" name="fechaInicial" value="${fechaInicialStr}" required />
+									</div>
+									<div class="col-md-4 mb-3">
+										<label for="fechaFinal">Fecha final</label>
+										<input class="form-control" type="datetime-local" name="fechaFinal" value="${fechaFinalStr}" required />
+									</div>
+									<div class="col-md-4 mb-3">
+										<label>&nbsp;</label>
+										<input type="hidden" name="merchantId" value="${comercio.merchantId}" />
+										<button type="submit" class="btn btn-info btn-block">Restringir fechas</button>
+									</div>
+									<!-- 
+									<div class="col-md-3 mb-3">
+										<label>&nbsp;</label>
+										<div>
+											${numDiasDiferencia}
+											<c:if test="${numDiasDiferencia != 1}">días</c:if>
+											<c:if test="${numDiasDiferencia == 1}">día</c:if>
+											[${numDiasDiferencia2}]
+										</div>
+									</div>
+									 -->
+								</div>
+							</form>
 							
 							<div class="col-md-12">
 						        <div class="py-3" id="col_chart_num_ventas_importe_por_hora"></div>

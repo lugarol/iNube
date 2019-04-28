@@ -17,11 +17,13 @@ public class CreateClienteServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// recoger datos formulario (cp, sex, age)
+		int id = Integer.parseInt(req.getParameter("id"));
 		int cp = Integer.parseInt(req.getParameter("cp"));
 		int sexo = Integer.parseInt(req.getParameter("sex"));
 		int edad = Integer.parseInt(req.getParameter("age"));
 		
 		Cliente cliente = new Cliente();
+		cliente.setId(id);
 		cliente.setCp(cp);
 		cliente.setSexo(sexo);
 		cliente.setEdad(edad);

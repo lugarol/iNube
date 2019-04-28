@@ -178,8 +178,7 @@ public class VentaDAOImplementation implements VentaDAO {
 		Collection<Venta> ventas = null;
 		try {
 			session.beginTransaction();
-			//Query query = session.createQuery("from Venta where comercio_merchantId != :merchantId and cp");
-			Query query = session.createQuery("from Venta as venta WHERE comercio.merchantId != :merchantId and comercio.cp = :cp and comercio.sector = :sector");
+			Query query = session.createQuery("from Venta WHERE comercio.merchantId != :merchantId and comercio.cp = :cp and comercio.sector = :sector");
 			query.setParameter("merchantId", merchantId);
 			query.setParameter("cp", cp);
 			query.setParameter("sector", sector);
@@ -203,7 +202,69 @@ public class VentaDAOImplementation implements VentaDAO {
 			query.setParameter("from", from);
 			query.setParameter("to", to);
 			ventas = query.list();
-			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
+		}
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllForComercioBetweenDates(String merchantId, Date from, Date to) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta where comercio_merchantid = :merchantId and fecha >= :from and fecha <= :to ORDER BY fecha ASC");
+			query.setParameter("merchantId", merchantId);
+			query.setParameter("from", from);
+			query.setParameter("to", to);
+			ventas = query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
+		}
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllButMineBetweenDates(String merchantId, String sector, int cp, Date from, Date to) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta WHERE comercio.merchantId != :merchantId and comercio.cp = :cp and comercio.sector = :sector and fecha >= :from and fecha <= :to");
+			query.setParameter("merchantId", merchantId);
+			query.setParameter("cp", cp);
+			query.setParameter("sector", sector);
+			query.setParameter("from", from);
+			query.setParameter("to", to);
+			ventas = query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			// manejar
+		} finally {
+			session.close();
+		}
+		return ventas;
+	}
+	
+	@Override
+	public Collection<Venta> readAllBetweenDatesForSectorCpSortedByDate(String sector, int cp, Date from, Date to) {
+		Session session = SessionFactoryService.get().openSession();
+		Collection<Venta> ventas = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Venta WHERE comercio.cp = :cp and comercio.sector = :sector and fecha >= :from and fecha <= :to ORDER BY fecha ASC");
+			query.setParameter("cp", cp);
+			query.setParameter("sector", sector);
+			query.setParameter("from", from);
+			query.setParameter("to", to);
+			ventas = query.list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			// manejar

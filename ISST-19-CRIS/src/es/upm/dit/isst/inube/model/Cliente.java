@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class Cliente implements Serializable {
 
 	@Id
-	@GeneratedValue
 	private int id;
 	
 	private int cp;

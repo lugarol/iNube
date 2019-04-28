@@ -3,13 +3,18 @@ package es.upm.dit.isst.inube.servlets;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.inube.dao.ComercioDAO;
 import es.upm.dit.isst.inube.dao.ComercioDAOImplementation;
+import es.upm.dit.isst.inube.dao.VentaDAO;
+import es.upm.dit.isst.inube.dao.VentaDAOImplementation;
 import es.upm.dit.isst.inube.model.*;
 
 @WebServlet("/VerComercioEstadIndivServlet")
@@ -47,11 +54,9 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 	
 	private Map<Integer, double[]> inicializarNumVentasEImportePorHora() {
 		Map<Integer, double[]> numVentasEImportePorHora = new HashMap<Integer, double[]>();
-		
 		for (int i = 0; i < 24; i++) {
 			numVentasEImportePorHora.put(i, new double[2]);
 		}
-		
 		return numVentasEImportePorHora;
 	}
 	
@@ -121,12 +126,39 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		
 		// recoger parámetros
 		String merchantId = req.getParameter("merchantId");
+		String fechaInicialStr = req.getParameter("fechaInicial");
+		String fechaFinalStr = req.getParameter("fechaFinal");
 		
 		// obtener comercio
 		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
 		Comercio comercio = comercioDAO.read(merchantId);
 		
-		Collection<Venta> misVentas = comercio.getVentas();
+		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
+		
+		//Collection<Venta> misVentas = comercio.getVentas();
+		Collection<Venta> misVentas = null;
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		Date fechaInicial = null;
+		Date fechaFinal = null;
+		
+		try {
+			fechaInicial = formatter.parse(fechaInicialStr);
+			fechaFinal = formatter.parse(fechaFinalStr);
+		} catch (Exception e) {
+			fechaInicialStr = "2019-01-01T00:00";
+			fechaFinalStr = "2019-06-01T23:59";
+			try {
+				fechaInicial = formatter.parse(fechaInicialStr);
+				fechaFinal = formatter.parse(fechaFinalStr);
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+			System.out.println(e.getMessage());
+		} finally {
+			misVentas = ventaDAO.readAllForComercioBetweenDates(comercio.getMerchantId(), fechaInicial, fechaFinal); 
+		}
+		
 		int numVentas = misVentas.size();
 		
 		Set<Integer> idsClientesDistintos = new HashSet<Integer>();
@@ -152,6 +184,8 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		double porcClientesTresOMasVeces = 0.0;
 		
 		int numClientesDistintos = 0;
+		
+		int numDiasDiferencia = 1;
 		
 		Calendar calendar = Calendar.getInstance();
 		
@@ -234,7 +268,16 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 			importeTotal = importeHombres + importeMujeres;
 			importeMedio = importeTotal / numVentas;
 			
+			List<Venta> misVentasList = new ArrayList<Venta>(misVentas);
+			Date fechaPrimera = misVentasList.get(0).getFecha();
+			Date fechaUltima = misVentasList.get(numVentas - 1).getFecha();
+			long diff = fechaUltima.getTime() - fechaPrimera.getTime();
+			numDiasDiferencia = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			
 		}
+		
+		long diff2 = fechaFinal.getTime() - fechaInicial.getTime();
+		int numDiasDiferencia2 = (int) TimeUnit.DAYS.convert(diff2, TimeUnit.MILLISECONDS);
 		
 		DecimalFormat df2Decimales = new DecimalFormat("#.##");
 		df2Decimales.setRoundingMode(RoundingMode.CEILING);
@@ -255,6 +298,14 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		req.getSession().setAttribute("porcClientesUnaVez", porcClientesUnaVez);
 		req.getSession().setAttribute("porcClientesDosVeces", porcClientesDosVeces);
 		req.getSession().setAttribute("porcClientesTresOMasVeces", porcClientesTresOMasVeces);
+		
+		if (numDiasDiferencia == 0) {
+			numDiasDiferencia = 1;
+		}
+		req.getSession().setAttribute("numDiasDiferencia", numDiasDiferencia);
+		req.getSession().setAttribute("fechaInicialStr", fechaInicialStr);
+		req.getSession().setAttribute("fechaFinalStr", fechaFinalStr);
+		req.getSession().setAttribute("numDiasDiferencia2", numDiasDiferencia2);
 		
 		getServletContext().getRequestDispatcher("/VerComercioEstadIndivView.jsp").forward(req, resp);
 

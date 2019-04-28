@@ -195,11 +195,15 @@
 						<h3 class="mb-3">Insertar cliente (comprador)</h3>
 						<form action="CreateClienteServlet" method="post">
 							<div class="row">
-								<div class="col-md-4 mb-3">
+								<div class="col-md-6 mb-3">
+									<label for="id">Id cliente</label>
+									<input class="form-control" type="number" name="id" required />
+								</div>
+								<div class="col-md-6 mb-3">
 									<label for="cp">Código postal</label>
 									<input class="form-control" type="number" name="cp" required />
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-md-6 mb-3">
 									<label for="sex">Sexo</label>
 									<div class="col-md-12">
 										<div class="row d-flex justify-content-center">
@@ -214,7 +218,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-md-6 mb-3">
 									<label for="age">Edad</label>
 									<input class="form-control" type="number" name="age" required />
 								</div>

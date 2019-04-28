@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -363,12 +366,39 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		
 		// recoger parámetros
 		String merchantId = req.getParameter("merchantId");
+		String fechaInicialStr = req.getParameter("fechaInicial");
+		String fechaFinalStr = req.getParameter("fechaFinal");
 		
 		// obtener comercio
 		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
 		Comercio comercio = comercioDAO.read(merchantId);
 		
-		Collection<Venta> misVentas = comercio.getVentas();
+		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
+		
+		Collection<Venta> misVentas = null;
+		Collection<Venta> restoVentas = null;
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		Date fechaInicial = null;
+		Date fechaFinal = null;
+		try {
+			fechaInicial = formatter.parse(fechaInicialStr);
+			fechaFinal = formatter.parse(fechaFinalStr);
+		} catch (Exception e) {
+			fechaInicialStr = "2019-01-01T00:00";
+			fechaFinalStr = "2019-06-01T23:59";
+			try {
+				fechaInicial = formatter.parse(fechaInicialStr);
+				fechaFinal = formatter.parse(fechaFinalStr);
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+			System.out.println(e.getMessage());
+		} finally {
+			misVentas = ventaDAO.readAllForComercioBetweenDates(merchantId, fechaInicial, fechaFinal);
+			restoVentas = ventaDAO.readAllBetweenDatesForSectorCpSortedByDate(comercio.getSector(), comercio.getCp(), fechaInicial, fechaFinal);
+		}
+		
 		int numMisVentas = misVentas.size();
 		
 		Set<Integer> idsMisClientesDistintos = new HashSet<Integer>();
@@ -493,8 +523,6 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		Collection<Comercio> restoComercios = comercioDAO.readAllButMe(merchantId, comercio.getSector(), comercio.getCp());
 		int numRestoComercios = restoComercios.size();
 		
-		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
-		
 		double[][] restoComerciosFidelidad = new double[numRestoComercios][3]; // por cada comercio -> [0]: 1 vez // [1]: 2 veces // [2]: 3+ veces
 		int indice = 0;
 		
@@ -508,7 +536,7 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 			double porcClientesComercioExternoDosVeces = 0.0;
 			double porcClientesComercioExternoTresOMasVeces = 0.0;
 			
-			Collection<Venta> ventasComercioExterno = ventaDAO.readAllForComercio(c.getMerchantId());
+			Collection<Venta> ventasComercioExterno = ventaDAO.readAllForComercioBetweenDates(c.getMerchantId(), fechaInicial, fechaFinal);
 			for (Venta v : ventasComercioExterno) {
 				sumarUnaVentaAClienteComercioExterno(numVentasPorClienteComercioExterno, v.getPersona().getId());
 			}
@@ -552,8 +580,19 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		
 		
 		// CALCULO ESTADISTICAS RESTO VENTAS
-		Collection<Venta> restoVentas = ventaDAO.readAllButMine(merchantId, comercio.getSector(), comercio.getCp());
-		int numRestoVentas = restoVentas.size();
+		List<Venta> ventasMiasYResto = new ArrayList<Venta>(restoVentas);
+		
+		int numDiasDiferencia = 1;
+		int numRestoVentas = ventasMiasYResto.size();
+		if (numRestoVentas > 0) {
+			Date fechaPrimera = ventasMiasYResto.get(0).getFecha();
+			Date fechaUltima = ventasMiasYResto.get(numRestoVentas - 1).getFecha();
+			long diff = fechaUltima.getTime() - fechaPrimera.getTime();
+			numDiasDiferencia = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		}
+		
+		long diff2 = fechaFinal.getTime() - fechaInicial.getTime();
+		int numDiasDiferencia2 = (int) TimeUnit.DAYS.convert(diff2, TimeUnit.MILLISECONDS);
 		
 		Set<Integer> idsRestoClientesDistintos = new HashSet<Integer>();
 		double restoImporteTotal = 0.0;
@@ -580,7 +619,7 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		
 		// CALCULO RESTO VENTAS
 		if (numRestoVentas > 0) {
-			for (Venta v : restoVentas) {
+			for (Venta v : ventasMiasYResto) {
 				idsRestoClientesDistintos.add(v.getPersona().getId());
 				
 				calendar.setTime(v.getFecha());
@@ -643,7 +682,7 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 			restoImporteMedio = restoImporteTotal / numRestoVentas;
 			
 			// normalizar			
-			if (numRestoComercios > 1) {
+			/*if (numRestoComercios > 1) {
 				// por hora
 				normalizarNumVentasPorHoraMioYResto(numVentasPorHoraMioYResto, numRestoComercios);
 				normalizarImportePorHoraMioYResto(importePorHoraMioYResto, numRestoComercios);
@@ -659,7 +698,7 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 				// por cliente (no se usa, se podria borrar)
 				normalizarNumVentasPorClienteMioYResto(numVentasPorClienteMioYResto, numRestoComercios);
 				normalizarImportePorClienteMioYResto(importePorClienteMioYResto, numRestoComercios);
-			}
+			}*/
 			
 			// obtener maximos
 			// por hora
@@ -681,16 +720,6 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 			porcRestoImporteMujeres = (double) restoImporteMujeres / (double) restoImporteTotal * 100.0;
 				
 		}
-		
-		// PARA VER VENTAS POR FECHA
-		/*Collection<Venta> listaPorFechas = null;
-		try {
-			Date from = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("01-02-2019 00:00:00");
-			Date to = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("28-02-2019 23:59:59");
-			listaPorFechas = ventaDAO.readAllBetweenDates(from, to);
-		} catch (Exception e) {
-			
-		}*/
 		
 		DecimalFormat df2Decimales = new DecimalFormat("#.##");
 		df2Decimales.setRoundingMode(RoundingMode.CEILING);
@@ -725,17 +754,15 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		req.getSession().setAttribute("importePorHoraMioYResto", importePorHoraMioYResto);
 		req.getSession().setAttribute("maxImporteVentasPorHoraMioYResto", maxImportePorHoraMioYResto);
 		
-		// estad comparadas sexo
-		req.getSession().setAttribute("numRestoVentasHombres", numRestoVentasHombres);
-		req.getSession().setAttribute("restoImporteHombres", restoImporteHombres);
-		req.getSession().setAttribute("numRestoVentasMujeres", numRestoVentasMujeres);
-		req.getSession().setAttribute("restoImporteMujeres", restoImporteMujeres);
-		
-			
+		// estad comparadas sexo		
 		req.getSession().setAttribute("porcRestoVentasHombres", porcRestoVentasHombres);
 		req.getSession().setAttribute("porcRestoImporteHombres", porcRestoImporteHombres);
 		req.getSession().setAttribute("porcRestoVentasMujeres", porcRestoVentasMujeres);
 		req.getSession().setAttribute("porcRestoImporteMujeres", porcRestoImporteMujeres);
+		req.getSession().setAttribute("numRestoVentasHombres", numRestoVentasHombres);
+		req.getSession().setAttribute("restoImporteHombres", restoImporteHombres);
+		req.getSession().setAttribute("numRestoVentasMujeres", numRestoVentasMujeres);
+		req.getSession().setAttribute("restoImporteMujeres", restoImporteMujeres);
 		
 		// estad comparadas edad
 		req.getSession().setAttribute("numVentasPorEdadMioYResto", numVentasPorEdadMioYResto);
@@ -760,6 +787,14 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		req.getSession().setAttribute("porcRestoClientesUnaVez", porcRestoClientesUnaVez);
 		req.getSession().setAttribute("porcRestoClientesDosVeces", porcRestoClientesDosVeces);
 		req.getSession().setAttribute("porcRestoClientesTresOMasVeces", porcRestoClientesTresOMasVeces);
+		
+		if (numDiasDiferencia == 0) {
+			numDiasDiferencia = 1;
+		}
+		req.getSession().setAttribute("numDiasDiferencia", numDiasDiferencia);
+		req.getSession().setAttribute("fechaInicialStr", fechaInicialStr);
+		req.getSession().setAttribute("fechaFinalStr", fechaFinalStr);
+		req.getSession().setAttribute("numDiasDiferencia2", numDiasDiferencia2);
 		
 		getServletContext().getRequestDispatcher("/VerComercioEstadComparView.jsp").forward(req, resp);
 

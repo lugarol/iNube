@@ -18,5 +18,8 @@ public interface VentaDAO {
 	public Collection<Venta> readAllExceptForComercio(String merchantId);
 	public Collection<Venta> readAllButMine(String merchantId, String sector, int cp);
 	public Collection<Venta> readAllBetweenDates(Date from, Date to);
+	public Collection<Venta> readAllForComercioBetweenDates(String merchantId, Date from, Date to);
+	public Collection<Venta> readAllButMineBetweenDates(String merchantId, String sector, int cp, Date from, Date to);
+	public Collection<Venta> readAllBetweenDatesForSectorCpSortedByDate(String sector, int cp, Date from, Date to);
 
 }

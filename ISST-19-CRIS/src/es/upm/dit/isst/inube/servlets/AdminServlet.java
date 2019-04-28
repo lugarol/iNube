@@ -1,6 +1,10 @@
 package es.upm.dit.isst.inube.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +20,7 @@ import es.upm.dit.isst.inube.dao.ComercioDAO;
 import es.upm.dit.isst.inube.dao.ComercioDAOImplementation;
 import es.upm.dit.isst.inube.dao.VentaDAO;
 import es.upm.dit.isst.inube.dao.VentaDAOImplementation;
+import es.upm.dit.isst.inube.model.Venta;
 
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
