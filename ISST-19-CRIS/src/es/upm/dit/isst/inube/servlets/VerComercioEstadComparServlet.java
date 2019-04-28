@@ -725,7 +725,13 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 		req.getSession().setAttribute("importePorHoraMioYResto", importePorHoraMioYResto);
 		req.getSession().setAttribute("maxImporteVentasPorHoraMioYResto", maxImportePorHoraMioYResto);
 		
-		// estad comparadas sexo		
+		// estad comparadas sexo
+		req.getSession().setAttribute("numRestoVentasHombres", numRestoVentasHombres);
+		req.getSession().setAttribute("restoImporteHombres", restoImporteHombres);
+		req.getSession().setAttribute("numRestoVentasMujeres", numRestoVentasMujeres);
+		req.getSession().setAttribute("restoImporteMujeres", restoImporteMujeres);
+		
+			
 		req.getSession().setAttribute("porcRestoVentasHombres", porcRestoVentasHombres);
 		req.getSession().setAttribute("porcRestoImporteHombres", porcRestoImporteHombres);
 		req.getSession().setAttribute("porcRestoVentasMujeres", porcRestoVentasMujeres);

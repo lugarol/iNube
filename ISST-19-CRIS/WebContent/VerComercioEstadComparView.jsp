@@ -375,13 +375,13 @@
 		 	
 		 	function drawChart12_PieChartNumVentasMiasPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Núm. mis ventas'],
-		    		['Hombres', ${numMisVentasHombres}],
-		    		['Mujeres', ${numMisVentasMujeres}]
+		    		['Comercio', 'Ventas por hombres'],
+		    		['Mi comercio', ${numMisVentasMujeres}],
+		    		['Resto', ${numRestoVentasMujeres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Núm. ventas mías por sexo',
+		    		'title': 'Núm. ventas mujeres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -401,13 +401,13 @@
 		 	
 		 	function drawChart13_PieChartNumVentasRestoPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Porc. núm ventas resto'],
-		    		['Hombres', ${porcRestoVentasHombres}],
-		    		['Mujeres', ${porcRestoVentasMujeres}]
+		    		['Comercio', 'Num ventas por hombres'],
+		    		['Mi comercio', ${numMisVentasHombres}],
+		    		['Resto', ${numRestoVentasHombres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Porc. ventas resto por sexo',
+		    		'title': 'Num. ventas hombres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -427,13 +427,13 @@
 		    
 		    function drawChart14_PieChartImporteMioPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Importe mis ventas'],
-		    		['Hombres', ${miImporteHombres}],
-		    		['Mujeres', ${miImporteMujeres}]
+		    		['Comercio', 'Importe ventas por mujeres'],
+		    		['Mi comercio', ${miImporteMujeres}],
+		    		['Resto', ${restoImporteMujeres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Importe mío por sexo',
+		    		'title': 'Importe mujeres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
@@ -453,13 +453,13 @@
 		    
 		    function drawChart15_PieChartImporteRestoPorSexo() {
 		    	let data = google.visualization.arrayToDataTable([
-		    		['Sexo', 'Importe resto ventas'],
-		    		['Hombres', ${porcRestoImporteHombres}],
-		    		['Mujeres', ${porcRestoImporteMujeres}]
+		    		['Comercio', 'Importe ventas por hombres'],
+		    		['Mi comercio', ${miImporteHombres}],
+		    		['Resto', ${restoImporteHombres}]
 		    	]);
 		    	
 		    	let options = {
-		    		'title': 'Porc. importe resto por sexo',
+		    		'title': 'Importe hombres',
 		    		pieSliceText: 'label',
 		    		tooltip :  {showColorCode: true},
 	    			fontName: 'Segoe UI Light',
