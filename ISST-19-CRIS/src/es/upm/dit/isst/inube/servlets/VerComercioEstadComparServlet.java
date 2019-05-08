@@ -386,10 +386,14 @@ public class VerComercioEstadComparServlet extends HttpServlet {
 			fechaFinal = formatter.parse(fechaFinalStr);
 		} catch (Exception e) {
 			fechaInicialStr = "2019-01-01T00:00";
-			fechaFinalStr = "2019-06-01T23:59";
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.DATE, 1);
+			c.set(Calendar.HOUR_OF_DAY, 0);
+			c.set(Calendar.MINUTE, 0);
+			fechaFinal = c.getTime();
+			fechaFinalStr = formatter.format(fechaFinal);
 			try {
 				fechaInicial = formatter.parse(fechaInicialStr);
-				fechaFinal = formatter.parse(fechaFinalStr);
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 			}

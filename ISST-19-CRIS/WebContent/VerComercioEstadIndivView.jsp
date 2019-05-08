@@ -314,19 +314,8 @@
 									<div class="col-md-4 mb-3">
 										<label>&nbsp;</label>
 										<input type="hidden" name="merchantId" value="${comercio.merchantId}" />
-										<button type="submit" class="btn btn-info btn-block">Restringir fechas</button>
+										<button type="submit" class="btn btn-primary btn-block">Restringir fechas</button>
 									</div>
-									<!-- 
-									<div class="col-md-3 mb-3">
-										<label>&nbsp;</label>
-										<div>
-											${numDiasDiferencia}
-											<c:if test="${numDiasDiferencia != 1}">días</c:if>
-											<c:if test="${numDiasDiferencia == 1}">día</c:if>
-											[${numDiasDiferencia2}]
-										</div>
-									</div>
-									 -->
 								</div>
 							</form>
 							
