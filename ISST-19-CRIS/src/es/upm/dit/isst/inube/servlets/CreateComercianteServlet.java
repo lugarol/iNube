@@ -52,8 +52,6 @@ public class CreateComercianteServlet extends HttpServlet {
 		// redirigir al login para que entren en su cuenta
 		if (comingFromAdmin.equals("yes")) {
 			resp.sendRedirect(req.getContextPath() + "/AdminServlet");
-		} else if (comingFromAdmin.equals("no")) {
-			resp.sendRedirect(req.getContextPath() + "/LoginServlet");
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/LoginServlet");
 		}
