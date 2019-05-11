@@ -23,7 +23,6 @@ class TestClienteDAOImplementation {
 	@Test
 	void testCreate() {
 		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
-		int numAnterior = clienteDAO.readAll().size();
 
 		Cliente cliente = new Cliente();
 		cliente.setId(12345678);
@@ -31,10 +30,11 @@ class TestClienteDAOImplementation {
 		cliente.setEdad(55);
 		cliente.setSexo(0);
 		clienteDAO.create(cliente);
-
-		int numPosterior = clienteDAO.readAll().size();
-
-		assertEquals(1, numPosterior - numAnterior);
+		
+		Cliente clienteLeido = clienteDAO.read(12345678);
+		
+		assertNotNull(clienteLeido);
+		
 		clienteDAO.delete(cliente);
 	}
 
@@ -86,7 +86,6 @@ class TestClienteDAOImplementation {
 	@Test
 	void testDelete() {
 		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
-		int numAnterior = clienteDAO.readAll().size();
 
 		Cliente cliente = new Cliente();
 		cliente.setId(12345678);
@@ -94,23 +93,19 @@ class TestClienteDAOImplementation {
 		cliente.setEdad(55);
 		cliente.setSexo(0);
 		clienteDAO.create(cliente);
-
-		Cliente cliente2 = new Cliente();
-		cliente2.setId(87654321);
-		cliente2.setCp(28012);
-		cliente2.setEdad(32);
-		cliente2.setSexo(1);
-		clienteDAO.create(cliente2);
-
+		
+		Cliente clienteLeido = clienteDAO.read(12345678);
+		
+		assertNotNull(clienteLeido);
+		
 		clienteDAO.delete(cliente);
 		
-		int numPosterior = clienteDAO.readAll().size();
+		Cliente clienteBorrado = clienteDAO.read(12345678);
 		
-		assertEquals(1, numPosterior - numAnterior);
-		
-		clienteDAO.delete(cliente2);
+		assertNull(clienteBorrado);
 	}
 
+	// pendiente
 	@Test
 	void testReadAll() {
 		assertTrue(true, "Not yet implemented");
