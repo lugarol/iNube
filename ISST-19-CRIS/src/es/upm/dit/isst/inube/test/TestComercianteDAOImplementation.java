@@ -6,8 +6,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import es.upm.dit.isst.inube.dao.ClienteDAO;
+import es.upm.dit.isst.inube.dao.ClienteDAOImplementation;
 import es.upm.dit.isst.inube.dao.ComercianteDAO;
 import es.upm.dit.isst.inube.dao.ComercianteDAOImplementation;
+import es.upm.dit.isst.inube.model.Cliente;
 import es.upm.dit.isst.inube.model.Comerciante;
 
 class TestComercianteDAOImplementation {
@@ -109,7 +112,23 @@ class TestComercianteDAOImplementation {
 	// pendiente
 	@Test
 	void testReadAll() {
-		assertTrue(true, "Not yet implemented");
+		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
+		
+		int long0 = comercianteDAO.readAll().size();
+		
+		Comerciante comerciante = new Comerciante();
+		comerciante.setUsuario("pruebau");
+		comerciante.setPassword("pruebac");
+		comercianteDAO.create(comerciante);
+
+		
+		int long1 = comercianteDAO.readAll().size();
+		int longPrueba = long0 + 1;
+		
+		assertEquals(longPrueba,long1);
+		
+		
+		comercianteDAO.delete(comerciante);
 	}
 
 }

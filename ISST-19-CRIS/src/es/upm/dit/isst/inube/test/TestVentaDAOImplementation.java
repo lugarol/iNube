@@ -265,7 +265,50 @@ class TestVentaDAOImplementation {
 	// pendiente
 	@Test
 	void testReadAll() {
-		assertTrue(true, "Not yet implemented");
+		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
+		ComercioDAO comercioDAO = ComercioDAOImplementation.getInstance();
+		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
+		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
+		
+		int long0 = ventaDAO.readAll().size();
+		
+		Comerciante comerciante = new Comerciante();
+		comerciante.setUsuario("pruebau");
+		comerciante.setPassword("pruebac");
+		comercianteDAO.create(comerciante);
+		
+		Comercio comercio = new Comercio();
+		comercio.setMerchantId("10101010");
+		comercio.setNombreComercio("NombrePrueba");
+		comercio.setSector("SectorPrueba");
+		comercio.setCp(28457);
+		comercio.setBanco("BancoPrueba");
+		comercio.setComerciante(comerciante);
+		comercioDAO.create(comercio);
+		
+		Cliente persona = new Cliente();
+		persona.setId(12345678);
+		persona.setCp(28457);
+		persona.setEdad(55);
+		persona.setSexo(0);
+		clienteDAO.create(persona);
+		
+		Venta venta = new Venta();
+		venta.setFecha(new Date());
+		venta.setImporte(45.18);
+		venta.setComercio(comercio);
+		venta.setPersona(persona);
+		ventaDAO.create(venta);
+		
+		int long1 = ventaDAO.readAll().size();
+		int longPrueba = long0 + 1;
+		
+		assertEquals(longPrueba,long1);
+		
+		ventaDAO.delete(venta);
+		comercioDAO.delete(comercio);
+		comercianteDAO.delete(comerciante);
+		clienteDAO.delete(persona);
 	}
 
 }

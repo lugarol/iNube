@@ -105,10 +105,28 @@ class TestClienteDAOImplementation {
 		assertNull(clienteBorrado);
 	}
 
-	// pendiente
+	
 	@Test
 	void testReadAll() {
-		assertTrue(true, "Not yet implemented");
+		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
+		
+		int long0 = clienteDAO.readAll().size();
+		
+		Cliente cliente = new Cliente();
+		cliente.setId(12345678);
+		cliente.setCp(28457);
+		cliente.setEdad(55);
+		cliente.setSexo(0);
+		clienteDAO.create(cliente);
+		
+		int long1 = clienteDAO.readAll().size();
+		int longPrueba = long0 + 1;
+		
+		assertEquals(longPrueba,long1);
+		
+		
+		clienteDAO.delete(cliente);
+		
 	}
 
 }
