@@ -262,7 +262,6 @@ class TestVentaDAOImplementation {
 		clienteDAO.delete(persona);
 	}
 
-	// pendiente
 	@Test
 	void testReadAll() {
 		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();

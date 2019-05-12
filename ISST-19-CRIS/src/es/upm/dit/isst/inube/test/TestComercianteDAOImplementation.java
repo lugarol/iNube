@@ -58,12 +58,6 @@ class TestComercianteDAOImplementation {
 		comercianteDAO.delete(comerciante);
 	}
 
-	// yo no lo haria
-	@Test
-	void testReadFromUsuario() {
-		assertTrue(true, "Not yet implemented");
-	}
-
 	@Test
 	void testUpdate() {
 		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
