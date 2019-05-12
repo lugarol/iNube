@@ -7,7 +7,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Menú Comerciante View</title>
-		<link rel="stylesheet" type="text/css" href="css/menuComerciante_styles.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	</head>
 	
