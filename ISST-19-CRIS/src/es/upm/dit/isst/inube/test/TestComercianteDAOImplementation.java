@@ -109,24 +109,20 @@ class TestComercianteDAOImplementation {
 		assertNull(comercianteBorrado);
 	}
 
-	// pendiente
 	@Test
 	void testReadAll() {
 		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
 		
-		int long0 = comercianteDAO.readAll().size();
+		int numAnterior = comercianteDAO.readAll().size();
 		
 		Comerciante comerciante = new Comerciante();
 		comerciante.setUsuario("pruebau");
 		comerciante.setPassword("pruebac");
 		comercianteDAO.create(comerciante);
 
+		int numPosterior = comercianteDAO.readAll().size();
 		
-		int long1 = comercianteDAO.readAll().size();
-		int longPrueba = long0 + 1;
-		
-		assertEquals(longPrueba,long1);
-		
+		assertEquals(1, numPosterior - numAnterior);
 		
 		comercianteDAO.delete(comerciante);
 	}

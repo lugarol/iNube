@@ -270,7 +270,7 @@ class TestVentaDAOImplementation {
 		ComercianteDAO comercianteDAO = ComercianteDAOImplementation.getInstance();
 		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
 		
-		int long0 = ventaDAO.readAll().size();
+		int numAnterior = ventaDAO.readAll().size();
 		
 		Comerciante comerciante = new Comerciante();
 		comerciante.setUsuario("pruebau");
@@ -300,10 +300,9 @@ class TestVentaDAOImplementation {
 		venta.setPersona(persona);
 		ventaDAO.create(venta);
 		
-		int long1 = ventaDAO.readAll().size();
-		int longPrueba = long0 + 1;
+		int numPosterior = ventaDAO.readAll().size();
 		
-		assertEquals(longPrueba,long1);
+		assertEquals(1, numPosterior - numAnterior);
 		
 		ventaDAO.delete(venta);
 		comercioDAO.delete(comercio);

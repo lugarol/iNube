@@ -62,8 +62,6 @@
 				
 					<h1 class="mb-3 mt-3">Vista de comerciante</h1>
 					
-					<!-- meter datos del comercio -->
-					
 					<section class="col-md-12">
 						<h4 class="mb-3">Editar comercio</h4>
 						<form action="EditComercioServlet" method="post">
@@ -88,7 +86,6 @@
 										<option value="Peluqueria">Peluquería</option>
 										<option value="Perfumeria">Perfumería</option>
 									</select>
-									<!-- <input class="form-control" type="text" value="${comercio.sector}" name="sector" required /> -->
 								</div>
 								<div class="col-md-4 mb-3">
 									<label for="cp">Código postal</label>
@@ -111,7 +108,6 @@
 					<hr>
 					
 					<section class="col-md-12">
-						<!-- PTE HACER -->
 						<h4 class="mb-3">Eliminar comercio</h4>
 						<form action="DeleteComercioServlet" method="post">
 							<input type="hidden" name="merchantId" value="${comercio.merchantId}" />

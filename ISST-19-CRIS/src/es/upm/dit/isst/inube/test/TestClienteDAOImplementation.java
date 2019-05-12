@@ -110,7 +110,7 @@ class TestClienteDAOImplementation {
 	void testReadAll() {
 		ClienteDAO clienteDAO = ClienteDAOImplementation.getInstance();
 		
-		int long0 = clienteDAO.readAll().size();
+		int numAnterior = clienteDAO.readAll().size();
 		
 		Cliente cliente = new Cliente();
 		cliente.setId(12345678);
@@ -119,14 +119,11 @@ class TestClienteDAOImplementation {
 		cliente.setSexo(0);
 		clienteDAO.create(cliente);
 		
-		int long1 = clienteDAO.readAll().size();
-		int longPrueba = long0 + 1;
+		int numPosterior = clienteDAO.readAll().size();
 		
-		assertEquals(longPrueba,long1);
-		
+		assertEquals(1, numPosterior - numAnterior);
 		
 		clienteDAO.delete(cliente);
-		
 	}
 
 }

@@ -47,7 +47,6 @@ public class EditComercioServlet extends HttpServlet {
 		
 		// recoger parámetros
 		String merchantId = req.getParameter("merchantId");
-		System.out.println("????????????" + merchantId);
 		String nombreComercio = req.getParameter("nombreComercio");
 		String sector = req.getParameter("sector");
 		int cp = Integer.parseInt(req.getParameter("cp"));
