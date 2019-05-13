@@ -135,7 +135,6 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 		
 		VentaDAO ventaDAO = VentaDAOImplementation.getInstance();
 		
-		//Collection<Venta> misVentas = comercio.getVentas();
 		Collection<Venta> misVentas = null;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -159,7 +158,7 @@ public class VerComercioEstadIndivServlet extends HttpServlet {
 			}
 			System.out.println(e.getMessage());
 		} finally {
-			misVentas = ventaDAO.readAllForComercioBetweenDates(comercio.getMerchantId(), fechaInicial, fechaFinal); 
+			misVentas = ventaDAO.readAllForComercioBetweenDates(comercio.getMerchantId(), fechaInicial, fechaFinal);
 		}
 		
 		int numVentas = misVentas.size();
