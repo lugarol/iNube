@@ -58,10 +58,10 @@ public class TestEstadisticasComparadas {
 		assertThat(driver.findElement(By.cssSelector(".table:nth-child(4) .align-middle:nth-child(4)")).getText(), is("28001"));
 		assertThat(driver.findElement(By.cssSelector(".table:nth-child(4) .align-middle:nth-child(5)")).getText(), is("Santander"));
 		
-		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(1)")).getText(), is("21"));
-		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(2)")).getText(), is("1066€"));
-		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(3)")).getText(), is("10"));
-		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(4)")).getText(), is("50,77€"));
-		assertThat(driver.findElement(By.cssSelector(".col-md-2 .align-middle")).getText(), is("36,44€"));
+		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(1)")).getText(), is("56"));
+		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(2)")).getText(), is("2006€"));
+		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(3)")).getText(), is("24"));
+		assertThat(driver.findElement(By.cssSelector(".table:nth-child(5) .align-middle:nth-child(4)")).getText(), is("35,83€"));
+		assertThat(driver.findElement(By.cssSelector(".col-md-2 .align-middle")).getText(), is("33,47€"));
 	}
 }

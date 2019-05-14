@@ -16,8 +16,9 @@ import es.upm.dit.isst.inube.model.Cliente;
 public class CreateClienteServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// recoger datos formulario (cp, sex, age)
-		int id = Integer.parseInt(req.getParameter("id"));
+		// recoger datos formulario (id, cp, sex, age)
+		String idStr = req.getParameter("id");
+		int id = Integer.parseInt(idStr);
 		int cp = Integer.parseInt(req.getParameter("cp"));
 		int sexo = Integer.parseInt(req.getParameter("sex"));
 		int edad = Integer.parseInt(req.getParameter("age"));
